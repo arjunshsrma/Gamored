@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laptop Stand - Gamored</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+    <a href="index.html"><button>Home</button></a><br>
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div><br>
+    <a href="Contactus.html"><button>Contact us</button></a>
+    <a href="Aboutus.html"><button>About us</button></a>
+    <a href="cart.html"><button class="button active">🛒 Cart</button></a>
+  </div>
+
+  <!-- Product View -->
+  <div class="product-view">
+    <div class="image-gallery">
+      <img id="mainImage" src="laptop-front.png" alt="Laptop Stand" class="main-product-image">
+
+      <div class="thumbnail-row">
+        <img src="laptop-front.png" alt="Front View" onclick="switchImage(this)">
+        <img src="laptop-side.png" alt="Side View" onclick="switchImage(this)">
+        <img src="laptop-folded.png" alt="Folded View" onclick="switchImage(this)">
+      </div>
+    </div>
+
+    <h1>Adjustable Aluminum Laptop Stand</h1>
+    <p class="price">₹1,299</p>
+    <p class="description">
+      A lightweight, foldable, and durable laptop stand made from premium aluminum. Improves posture and airflow while you work or game.
+    </p>
+    <ul>
+      <li>Adjustable height and angle</li>
+      <li>Anti-slip silicone pads</li>
+      <li>Compatible with 10-17 inch laptops</li>
+      <li>Folds flat for portability</li>
+    </ul>
+    <button onclick="addToCart('Aluminum Laptop Stand', 1299)">Add to Cart</button>
+  </div>
+
+  <script>
+    function switchImage(element) {
+      const mainImage = document.getElementById("mainImage");
+      mainImage.src = element.src;
+    }
+  </script>
+</body>
+</html>

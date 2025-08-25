@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gamored - Cart</title>
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+    <a href="index.html"><button>Home</button></a><br>
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div><br>
+    <a href="Contactus.html"><button>Contact us</button></a>
+    <a href="Aboutus.html"><button>About us</button></a>
+    <a href="cart.html"><button class="button active">🛒 Cart</button></a>
+  </div>
+c
+  <!-- CART SECTION -->
+  <div class="form-section" id="cart-container"></div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      const container = document.getElementById("cart-container");
+      if (cart.length === 0) {
+        container.innerHTML = "<h2>Your cart is empty.</h2>";
+        return;
+      }
+
+      let html = "<h2>Items in Your Cart:</h2><ul>";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        html += `<li>${item.name} - ₹${item.price}
+                   <button onclick="removeItem(${index})">Remove</button></li>`;
+        total += item.price;
+      });
+
+      html += `</ul><h3>Total: ₹${total}</h3>`;
+      container.innerHTML = html;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

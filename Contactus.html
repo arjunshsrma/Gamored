@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamored</title>
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+    <a href="index.html"><button>Home</button></a><br>
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div><br>
+    <a href="Contactus.html"><button class="active">Contact us</button></a>
+    <a href="Aboutus.html"><button>About us</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
+  </div>
+
+  <div class="form-section">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+    <p id="response-message"></p>
+  </div>
+
+  <script>
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+
+      fetch("https://script.google.com/macros/s/AKfycbySOQUBMBqpgwgxH39XFzte8bKEi_8CTdToYPYBm5BWrzGbLirHTYX158vmLpxk_jFp/exec", { // <-- Replace (LINK) with your Google Apps Script URL
+        method: "POST",
+        body: data
+      })
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById("response-message").innerText = "We'll get in touch with you shortly!";
+        form.reset();
+      })
+      .catch(err => {
+        document.getElementById("response-message").innerText = "❌ Submission failed.";
+      });
+    });
+  </script>
+</body>
+</html>
