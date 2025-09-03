@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UPI Payment | Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,Arial;padding:24px;max-width:720px;margin:auto}
+    .card{border:1px solid #ddd;border-radius:12px;padding:20px;margin:16px 0}
+    label{display:block;margin:.5rem 0 .25rem}
+    input,textarea{width:100%;padding:.6rem;border:1px solid #ccc;border-radius:8px}
+    button{padding:.7rem 1rem;border:0;border-radius:10px;cursor:pointer}
+    .primary{background:#3aa757;color:#fff}
+    .muted{opacity:.75}
+  </style>
+</head>
+<body>
+  <h1>Pay via UPI (Manual)</h1>
+  <p class="muted">Step 1: Pay the amount using UPI to the ID below. Step 2: Upload the payment screenshot. We’ll verify and confirm your order by email.</p>
+
+  <div class="card">
+    <h3>UPI Details</h3>
+    <p><strong>UPI ID:</strong> <span id="upiId">arjun@fampay</span></p>
+    <p><strong>Amount:</strong> ₹<span id="amount">499</span></p>
+    <p><em>You can also scan this QR in your UPI app:</em></p>
+    <!-- If you have a QR image, place it in /img/upi-qr.png -->
+    <img src="img/upi-qr.png" alt="UPI QR" style="max-width:220px;border:1px solid #eee;border-radius:10px">
+  </div>
+
+  <div class="card">
+    <h3>Submit Payment Proof</h3>
+    <form id="proofForm">
+      <label>Order ID</label>
+      <input id="orderId" placeholder="e.g., GM-2025-0001" required>
+
+      <label>Your Name</label>
+      <input id="customerName" placeholder="Your name" required>
+
+      <label>Your Email</label>
+      <input id="customerEmail" type="email" placeholder="you@example.com" required>
+
+      <label>Optional Note</label>
+      <textarea id="note" placeholder="Any info…"></textarea>
+
+      <label>Upload Screenshot (PNG/JPG)</label>
+      <input id="screenshot" type="file" accept="image/*" required>
+
+      <button class="primary" type="submit">Send Screenshot</button>
+      <p id="status" class="muted"></p>
+    </form>
+  </div>
+
+  <script>
+    // 1) Set your values
+    const UPI_ID = "arjun@fampay";            // your FamPay UPI ID
+    const AMOUNT = 499;                       // set or compute from cart
+    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    // Fill UI
+    document.getElementById("upiId").textContent = UPI_ID;
+    document.getElementById("amount").textContent = AMOUNT;
+
+    // 2) Convert file → base64
+    function fileToBase64(file){
+      return new Promise((resolve,reject)=>{
+        const r = new FileReader();
+        r.onload = () => resolve(r.result); // data URL
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+
+    // 3) Submit handler
+    document.getElementById("proofForm").addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const status = document.getElementById("status");
+      status.textContent = "Uploading… please wait";
+
+      const screenshotFile = document.getElementById("screenshot").files[0];
+      const screenshotBase64 = await fileToBase64(screenshotFile);
+
+      const payload = {
+        customerName: document.getElementById("customerName").value,
+        customerEmail: document.getElementById("customerEmail").value,
+        orderId: document.getElementById("orderId").value,
+        amount: AMOUNT,
+        upiId: UPI_ID,
+        note: document.getElementById("note").value,
+        screenshotBase64
+      };
+
+      try{
+        const res = await fetch(GAS_URL, {
+          method: "POST",
+          mode: "no-cors", // Apps Script can work without CORS preflight
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(payload)
+        });
+        // With no-cors, we can’t read response; just show success message:
+        status.textContent = "Submitted! We’ll email you once verified.";
+        alert("Thanks! Your screenshot was submitted. We’ll confirm soon.");
+        // window.location.href = "thankyou.html"; // optional
+      } catch (err){
+        console.error(err);
+        status.textContent = "Upload failed. Please try again.";
+        alert("Upload failed. Please try again or email the screenshot.");
+      }
+    });
+  </script>
+</body>
+</html>
