@@ -49,6 +49,20 @@
       <p id="status" class="muted"></p>
     </form>
   </div>
+<script>
+// Get the saved total from cart.html
+let AMOUNT = Number(localStorage.getItem('checkoutTotal') || 0);
+
+// If nothing found, show 0
+if (!AMOUNT || AMOUNT <= 0) {
+  AMOUNT = 0;
+  console.warn("No checkoutTotal found in localStorage.");
+}
+
+// Show it in the page if there's an element with id="amount"
+const amtEl = document.getElementById('amount');
+if (amtEl) amtEl.textContent = AMOUNT;
+</script>
 
   <script>
     // 1) Set your values
