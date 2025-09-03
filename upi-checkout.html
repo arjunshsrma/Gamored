@@ -4,68 +4,125 @@
   <meta charset="UTF-8">
   <title>UPI Checkout | Gamored</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Site CSS -->
   <link rel="stylesheet" href="stylesheet.css">
+
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
-    h1 { color: #3aa757; }
-    .card { border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin: 16px 0; }
-    label { display: block; margin: 8px 0 4px; font-weight: 600; }
-    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-    button { padding: 12px 20px; border: 0; border-radius: 10px; cursor: pointer; }
-    .primary { background: #3aa757; color: #fff; font-weight: 600; }
+    body { font-family: system-ui, Arial, sans-serif; background: #f9f9f9; }
+
+    .page {
+      max-width: 1200px;   /* 🔹 control width here */
+      margin: 110px auto 40px;
+      padding: 20px;
+    }
+
+    .card {
+      border: 1px solid #e6e6e6;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      background: #fff;
+      width: 100%;
+    }
+
+    h1 { color: #3aa757; margin-top: 0; }
+    h3 { margin-top: 0; }
+    label { display: block; margin: 10px 0 6px; font-weight: 600; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .primary { background: #3aa757; color: #fff; }
+    .ghost { background: #f1f1f1; }
     #status { margin-top: 10px; font-size: 0.9rem; opacity: 0.8; }
   </style>
 </head>
 <body>
 
-  <h1>UPI Payment</h1>
-  <p>Please pay the following amount via UPI and upload your payment screenshot:</p>
-
-  <div class="card">
-    <h3>Amount to Pay</h3>
-    <p><strong>₹<span id="amount">0</span></strong></p>
-    <p><strong>UPI ID:</strong> <span id="upiId">arjun@fampay</span></p>
-    <!-- Optional QR image -->
-    <!-- <img src="img/upi-qr.png" alt="UPI QR" style="max-width:200px;"> -->
+  <!-- 🔹 NAVBAR -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+    <a href="index.html"><button>Home</button></a>
+    <br>
+    <div class="dropdown"> 
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div>
+    <br>
+    <a href="Contactus.html"><button>Contact Us</button></a>
+    <a href="Aboutus.html"><button>About Us</button></a>
+    <a href="cart.html"><button>Cart</button></a>
   </div>
 
-  <div class="card">
-    <h3>Submit Payment Proof</h3>
-    <form id="proofForm">
-      <label>Order ID</label>
-      <input id="orderId" placeholder="e.g., GM-2025-0001" required>
+  <!-- 🔹 PAGE CONTENT -->
+  <div class="page">
+    <h1>UPI Payment</h1>
+    <p>Please pay the following amount to our UPI ID and upload the screenshot for verification:</p>
 
-      <label>Your Name</label>
-      <input id="customerName" placeholder="Your name" required>
+    <!-- Amount to Pay -->
+    <div class="card">
+      <h3>Amount to Pay</h3>
+      <p style="font-size:1.4rem;margin:.4rem 0;">
+        <strong>₹ <span id="amount">0</span></strong>
+      </p>
+      <p><strong>UPI ID:</strong> <span id="upiId">arjun@fampay</span></p>
+    </div>
 
-      <label>Your Email</label>
-      <input id="customerEmail" type="email" placeholder="you@example.com" required>
+    <!-- Submit Proof -->
+    <div class="card">
+      <h3>Submit Payment Proof</h3>
+      <form id="proofForm">
+        <label>Order ID</label>
+        <input id="orderId" placeholder="e.g., GM-2025-0001" required>
 
-      <label>Optional Note</label>
-      <textarea id="note" placeholder="Any message…"></textarea>
+        <label>Your Name</label>
+        <input id="customerName" placeholder="Your name" required>
 
-      <label>Upload Screenshot (PNG/JPG)</label>
-      <input id="screenshot" type="file" accept="image/*" required>
+        <label>Your Email</label>
+        <input id="customerEmail" type="email" placeholder="you@example.com" required>
 
-      <button class="primary" type="submit">Send Screenshot</button>
-      <p id="status"></p>
-    </form>
+        <label>Optional Note</label>
+        <textarea id="note" placeholder="Any message…"></textarea>
+
+        <label>Upload Screenshot (PNG/JPG)</label>
+        <input id="screenshot" type="file" accept="image/*" required>
+
+        <button class="primary" type="submit" style="margin-top:12px;">Send Screenshot</button>
+        <p id="status"></p>
+      </form>
+    </div>
   </div>
 
+  <!-- 🔹 SCRIPT -->
   <script>
-    // ----------- READ AMOUNT FROM URL -----------
+    // -------- SETTINGS --------
+    const UPI_ID = "arjun@fampay";   // your UPI ID
+    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // replace with your Apps Script URL
+
+    // -------- AMOUNT FROM URL --------
     function getAmountFromURL(){
-      const m = /[?&]amount=([^&]+)/.exec(window.location.search);
-      return m ? Number(decodeURIComponent(m[1])) : 0;
+      const params = new URLSearchParams(window.location.search);
+      const a = Number(params.get("amount"));
+      return Number.isFinite(a) && a > 0 ? a : 0;
     }
     let AMOUNT = getAmountFromURL();
-    document.getElementById('amount').textContent = AMOUNT;
+    document.getElementById("amount").textContent = AMOUNT;
+    document.getElementById("upiId").textContent = UPI_ID;
 
-    // ----------- SETTINGS -----------
-    const UPI_ID = "arjun@fampay";  // your UPI ID
-    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // replace with your script.new URL
-
-    // ----------- FILE TO BASE64 -----------
+    // -------- FILE TO BASE64 --------
     function fileToBase64(file){
       return new Promise((resolve,reject)=>{
         const r = new FileReader();
@@ -75,41 +132,11 @@
       });
     }
 
-    // ----------- FORM SUBMIT HANDLER -----------
-    document.getElementById('proofForm').addEventListener('submit', async (e)=>{
+    // -------- FORM SUBMIT --------
+    document.getElementById("proofForm").addEventListener("submit", async (e)=>{
       e.preventDefault();
-      const status = document.getElementById('status');
+      const status = document.getElementById("status");
       status.textContent = "Uploading… please wait";
 
-      const screenshotFile = document.getElementById('screenshot').files[0];
-      const screenshotBase64 = await fileToBase64(screenshotFile);
-
-      const payload = {
-        customerName: document.getElementById('customerName').value,
-        customerEmail: document.getElementById('customerEmail').value,
-        orderId: document.getElementById('orderId').value,
-        amount: AMOUNT,
-        upiId: UPI_ID,
-        note: document.getElementById('note').value,
-        screenshotBase64
-      };
-
-      try{
-        await fetch(GAS_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify(payload)
-        });
-        status.textContent = "Submitted! We’ll email you once verified.";
-        alert("Thanks! Your screenshot was submitted. We’ll confirm soon.");
-        // window.location.href = "thankyou.html"; // optional redirect
-      }catch(err){
-        console.error(err);
-        status.textContent = "Upload failed. Please try again.";
-        alert("Upload failed. Please try again or email us the screenshot.");
-      }
-    });
-  </script>
-</body>
-</html>
+      const screenshotFile = document.getElementById("screenshot").files[0];
+      const screenshotBase64 = await fileToBase64(scree
