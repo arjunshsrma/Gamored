@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <!-- 🔹 NAVBAR (same as index.html) -->
+  <!-- 🔹 NAVBAR -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
     <a href="index.html"><button>Home</button></a>
@@ -44,8 +44,12 @@
     </div>
   </div>
 
-  <!-- 🔹 CART LOGIC -->
+  <!-- 🔹 CART DISPLAY SCRIPT -->
   <script>
+    // Helper: convert "₹799" → 799
+    function toNumber(v){ return Number(String(v).replace(/[^\d.]/g,'') || 0); }
+
+    // Load cart items from localStorage
     function loadCart() {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const cartItemsDiv = document.getElementById("cart-items");
@@ -54,7 +58,7 @@
 
       let total = 0;
       cart.forEach((item, index) => {
-        const price = Number(String(item.price).replace(/[^\d.]/g, "") || 0);
+        const price = toNumber(item.price);
         const qty = item.qty ? Number(item.qty) : 1;
         const itemTotal = price * qty;
         total += itemTotal;
@@ -71,6 +75,7 @@
       totalSpan.textContent = total;
     }
 
+    // Remove item from cart
     function removeFromCart(index) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       cart.splice(index, 1);
@@ -78,21 +83,18 @@
       loadCart();
     }
 
-    function getCartTotal(){
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      return cart.reduce((sum, item)=>{
-        const price = Number(String(item.price).replace(/[^\d.]/g,'') || 0);
+    // Redirect to UPI checkout with total in URL
+    function goToUPICheckout(){
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const total = cart.reduce((sum, item)=>{
+        const price = toNumber(item.price);
         const qty   = Number(item.qty || 1);
         return sum + price * qty;
       }, 0);
-    }
-
-    function goToUPICheckout(){
-      const total = Math.round(getCartTotal());
       window.location.href = 'upi-checkout.html?amount=' + encodeURIComponent(total);
     }
 
-    // Load cart when page opens
+    // Load on page open
     loadCart();
   </script>
 </body>
