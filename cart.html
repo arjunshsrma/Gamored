@@ -2,59 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gamored - Cart</title>
+  <title>Gamored Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="stylesheet.css">
+  <script src="script.js" defer></script>
+  <style>
+    .cart-container { max-width: 900px; margin: 100px auto 40px; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .cart-item button { background: #f44336; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+    .cart-total { text-align: right; font-size: 1.3rem; font-weight: bold; margin-top: 20px; }
+    .pay-btn { display: inline-block; margin-top: 20px; padding: 12px 20px; background: #3aa757; color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; }
+  </style>
 </head>
 <body>
 
+  <!-- 🔹 NAVBAR (same as index.html) -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
-    <a href="index.html"><button>Home</button></a><br>
-    <div class="dropdown">
+    <a href="index.html"><button>Home</button></a>
+    <br>
+    <div class="dropdown"> 
       <button class="dropbtn">Products</button>
       <div class="dropdown-content">
         <a href="Laptopaccessories.html">Laptop Accessories</a>
         <a href="Connectors.html">Connectors</a>
       </div>
-    </div><br>
-    <a href="Contactus.html"><button>Contact us</button></a>
-    <a href="Aboutus.html"><button>About us</button></a>
-    <a href="cart.html"><button class="button active">🛒 Cart</button></a>
+    </div>
+    <br>
+    <a href="Contactus.html"><button>Contact Us</button></a>
+    <a href="Aboutus.html"><button>About Us</button></a>
+    <a href="cart.html"><button class="active">Cart</button></a>
   </div>
-c
-  <!-- CART SECTION -->
-  <div class="form-section" id="cart-container"></div>
 
-<!-- Save cart total + go to UPI checkout -->
-<script>
-// Convert "₹799" to 799
-function toNumber(v){ return Number(String(v).replace(/[^\d.]/g,'') || 0); }
+  <!-- 🔹 CART CONTENT -->
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+    <div class="cart-total">Total: ₹<span id="cart-total">0</span></div>
+    <div style="text-align:center;">
+      <button class="pay-btn" onclick="goToUPICheckout()">Pay via UPI (Upload Screenshot)</button>
+    </div>
+  </div>
 
-// Calculate cart total from localStorage
-function getCartTotal(){
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  return cart.reduce((sum, item)=>{
-    const price = toNumber(item.price);     // your cart items store price here
-    const qty   = Number(item.qty || 1);
-    return sum + price * qty;
-  }, 0);
-}
+  <!-- 🔹 CART LOGIC -->
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const cartItemsDiv = document.getElementById("cart-items");
+      const totalSpan = document.getElementById("cart-total");
+      cartItemsDiv.innerHTML = "";
 
-// When user clicks button, save total + open checkout page
-function goToUPICheckout(){
-  const total = Math.round(getCartTotal());
-  localStorage.setItem('checkoutTotal', String(total));
-  window.location.href = 'upi-checkout.html';
-}
-</script>
+      let total = 0;
+      cart.forEach((item, index) => {
+        const price = Number(String(item.price).replace(/[^\d.]/g, "") || 0);
+        const qty = item.qty ? Number(item.qty) : 1;
+        const itemTotal = price * qty;
+        total += itemTotal;
 
-<div style="text-align:center;margin:24px 0;">
-  <button onclick="goToUPICheckout()" 
-    style="padding:12px 18px;border:0;border-radius:10px;
-    background:#3aa757;color:#fff;font-weight:600;cursor:pointer;">
-    Pay via UPI (Upload Screenshot)
-  </button>
-</div>
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item.name} — ₹${price} × ${qty}</span>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartItemsDiv.appendChild(div);
+      });
 
+      totalSpan.textContent = total;
+    }
+
+    function removeFromCart(index) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function getCartTotal(){
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      return cart.reduce((sum, item)=>{
+        const price = Number(String(item.price).replace(/[^\d.]/g,'') || 0);
+        const qty   = Number(item.qty || 1);
+        return sum + price * qty;
+      }, 0);
+    }
+
+    function goToUPICheckout(){
+      const total = Math.round(getCartTotal());
+      window.location.href = 'upi-checkout.html?amount=' + encodeURIComponent(total);
+    }
+
+    // Load cart when page opens
+    loadCart();
+  </script>
 </body>
 </html>
