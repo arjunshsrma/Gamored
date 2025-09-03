@@ -3,58 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <title>UPI Checkout | Gamored</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Site CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Use your site styles (same as Contactus.html) -->
   <link rel="stylesheet" href="stylesheet.css">
-
   <style>
-    body { font-family: system-ui, Arial, sans-serif; background: #f9f9f9; }
-
-    .page {
-      max-width: 1200px;   /* 🔹 control width here */
-      margin: 110px auto 40px;
-      padding: 20px;
+    /* Tiny helpers in case some classes are missing — safe to keep */
+    .page-wrap{max-width:1000px;margin:110px auto 40px;padding:0 16px}
+    .section-title{margin:0 0 12px}
+    .subtext{opacity:.85;margin:.25rem 0 1rem}
+    .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width: 900px){ .grid-2{grid-template-columns:1fr 1fr} }
+    /* Match “card-like” form panels from Contactus look */
+    .form-section, .panel {
+      background:#fff;border:1px solid #e6e6e6;border-radius:12px;
+      padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.06);
     }
-
-    .card {
-      border: 1px solid #e6e6e6;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 20px 0;
-      background: #fff;
-      width: 100%;
+    .panel h3{margin-top:0}
+    .field{margin:10px 0 14px}
+    .field label{display:block;font-weight:600;margin:0 0 6px}
+    .field input, .field textarea{
+      width:100%;padding:10px;border:1px solid #ccc;border-radius:8px
     }
-
-    h1 { color: #3aa757; margin-top: 0; }
-    h3 { margin-top: 0; }
-    label { display: block; margin: 10px 0 6px; font-weight: 600; }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      padding: 12px 20px;
-      border: 0;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .primary { background: #3aa757; color: #fff; }
-    .ghost { background: #f1f1f1; }
-    #status { margin-top: 10px; font-size: 0.9rem; opacity: 0.8; }
+    .actions{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border:0;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn-primary{background:#3aa757;color:#fff}
+    .btn-ghost{background:#f1f1f1}
+    .muted{opacity:.8;font-size:.95rem}
+    .warn{color:#c0392b;margin-top:8px}
+    .kpi{font-size:1.4rem}
   </style>
 </head>
 <body>
 
-  <!-- 🔹 NAVBAR -->
+  <!-- NAVBAR (same block you use across pages) -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
     <a href="index.html"><button>Home</button></a>
     <br>
-    <div class="dropdown"> 
+    <div class="dropdown">
       <button class="dropbtn">Products</button>
       <div class="dropdown-content">
         <a href="Laptopaccessories.html">Laptop Accessories</a>
@@ -67,62 +53,99 @@
     <a href="cart.html"><button>Cart</button></a>
   </div>
 
-  <!-- 🔹 PAGE CONTENT -->
-  <div class="page">
-    <h1>UPI Payment</h1>
-    <p>Please pay the following amount to our UPI ID and upload the screenshot for verification:</p>
+  <!-- PAGE CONTENT (mirrors Contactus layout) -->
+  <div class="page-wrap">
+    <h1 class="section-title">UPI Checkout</h1>
+    <p class="subtext">Pay via UPI and upload your payment screenshot so we can verify and process your order.</p>
 
-    <!-- Amount to Pay -->
-    <div class="card">
-      <h3>Amount to Pay</h3>
-      <p style="font-size:1.4rem;margin:.4rem 0;">
-        <strong>₹ <span id="amount">0</span></strong>
-      </p>
-      <p><strong>UPI ID:</strong> <span id="upiId">arjun@fampay</span></p>
-    </div>
+    <!-- Two-panel layout like your contact page vibe -->
+    <div class="grid-2">
 
-    <!-- Submit Proof -->
-    <div class="card">
-      <h3>Submit Payment Proof</h3>
-      <form id="proofForm">
-        <label>Order ID</label>
-        <input id="orderId" placeholder="e.g., GM-2025-0001" required>
+      <!-- LEFT: Amount to Pay (panel styled like a form block) -->
+      <div class="panel form-section">
+        <h3>Amount to Pay</h3>
+        <p class="kpi"><strong>₹ <span id="amount">0</span></strong></p>
+        <div class="field">
+          <label>UPI ID</label>
+          <input id="upiIdField" value="arjun@fampay" readonly>
+        </div>
+        <!-- Optional QR image: put your QR at /img/upi-qr.png -->
+        <!-- <img src="img/upi-qr.png" alt="UPI QR" style="max-width:220px;border:1px solid #eee;border-radius:10px"> -->
+        <p id="amtWarning" class="warn" style="display:none">Amount is 0. Please go back to your cart and try again.</p>
+        <div class="actions">
+          <a href="cart.html" class="btn btn-ghost">← Back to Cart</a>
+        </div>
+      </div>
 
-        <label>Your Name</label>
-        <input id="customerName" placeholder="Your name" required>
+      <!-- RIGHT: Submit Payment Proof (exactly like a contact form) -->
+      <div class="form-section">
+        <h3>Submit Payment Proof</h3>
+        <form id="proofForm">
+          <div class="field">
+            <label>Order ID</label>
+            <input id="orderId" placeholder="e.g., GM-2025-0001" required>
+          </div>
 
-        <label>Your Email</label>
-        <input id="customerEmail" type="email" placeholder="you@example.com" required>
+          <div class="field">
+            <label>Your Name</label>
+            <input id="customerName" placeholder="Your name" required>
+          </div>
 
-        <label>Optional Note</label>
-        <textarea id="note" placeholder="Any message…"></textarea>
+          <div class="field">
+            <label>Your Email</label>
+            <input id="customerEmail" type="email" placeholder="you@example.com" required>
+          </div>
 
-        <label>Upload Screenshot (PNG/JPG)</label>
-        <input id="screenshot" type="file" accept="image/*" required>
+          <div class="field">
+            <label>Optional Note</label>
+            <textarea id="note" placeholder="Any message…"></textarea>
+          </div>
 
-        <button class="primary" type="submit" style="margin-top:12px;">Send Screenshot</button>
-        <p id="status"></p>
-      </form>
+          <div class="field">
+            <label>Upload Screenshot (PNG/JPG)</label>
+            <input id="screenshot" type="file" accept="image/*" required>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Send Screenshot</button>
+            <button class="btn btn-ghost" type="button" onclick="window.location.href='cart.html'">Cancel</button>
+          </div>
+          <p id="status" class="muted"></p>
+        </form>
+      </div>
+
     </div>
   </div>
 
-  <!-- 🔹 SCRIPT -->
+  <!-- SCRIPTS -->
   <script>
-    // -------- SETTINGS --------
-    const UPI_ID = "arjun@fampay";   // your UPI ID
-    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // replace with your Apps Script URL
+    // ====== SETTINGS (edit these) ======
+    const UPI_ID = "arjun@fampay"; // TODO: replace with your UPI
+    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // TODO: replace with your Apps Script /exec URL
 
-    // -------- AMOUNT FROM URL --------
+    // ====== AMOUNT SYNC (reads from ?amount=; fallback to cart) ======
     function getAmountFromURL(){
-      const params = new URLSearchParams(window.location.search);
-      const a = Number(params.get("amount"));
-      return Number.isFinite(a) && a > 0 ? a : 0;
+      const p = new URLSearchParams(location.search);
+      const a = Number(p.get("amount"));
+      return Number.isFinite(a) && a > 0 ? Math.round(a) : 0;
     }
-    let AMOUNT = getAmountFromURL();
-    document.getElementById("amount").textContent = AMOUNT;
-    document.getElementById("upiId").textContent = UPI_ID;
+    function toNumber(v){ return Number(String(v).replace(/[^\d.]/g,'') || 0); }
+    function computeFromCart(){
+      try{
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (!Array.isArray(cart) || cart.length === 0) return 0;
+        return Math.round(cart.reduce((s,i)=> s + toNumber(i.price) * (i.qty || 1), 0));
+      }catch(_){ return 0; }
+    }
 
-    // -------- FILE TO BASE64 --------
+    let AMOUNT = getAmountFromURL();
+    if (!AMOUNT) AMOUNT = computeFromCart();
+
+    document.getElementById("amount").textContent = AMOUNT;
+    document.getElementById("upiIdField").value = UPI_ID;
+    if (!AMOUNT) document.getElementById("amtWarning").style.display = "block";
+
+    // ====== FILE → BASE64 ======
     function fileToBase64(file){
       return new Promise((resolve,reject)=>{
         const r = new FileReader();
@@ -132,11 +155,47 @@
       });
     }
 
-    // -------- FORM SUBMIT --------
+    // ====== SUBMIT HANDLER (same style as your contact form flow) ======
     document.getElementById("proofForm").addEventListener("submit", async (e)=>{
       e.preventDefault();
+
+      if (!AMOUNT || AMOUNT <= 0) {
+        alert("Amount is 0. Please go back to the cart and try again.");
+        return;
+      }
+
       const status = document.getElementById("status");
       status.textContent = "Uploading… please wait";
 
       const screenshotFile = document.getElementById("screenshot").files[0];
-      const screenshotBase64 = await fileToBase64(scree
+      const screenshotBase64 = await fileToBase64(screenshotFile);
+
+      const payload = {
+        customerName: document.getElementById("customerName").value,
+        customerEmail: document.getElementById("customerEmail").value,
+        orderId: document.getElementById("orderId").value,
+        amount: AMOUNT,
+        upiId: UPI_ID,
+        note: document.getElementById("note").value,
+        screenshotBase64
+      };
+
+      try{
+        await fetch(GAS_URL, {
+          method: "POST",
+          mode: "no-cors", // like your Contactus form to Apps Script
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(payload)
+        });
+        status.textContent = "Submitted! We’ll email you once verified.";
+        alert("Thanks! Your screenshot was submitted.");
+        // Optional: window.location.href = "thankyou.html";
+      }catch(err){
+        console.error(err);
+        status.textContent = "Upload failed. Please try again.";
+        alert("Upload failed. Please try again or email the screenshot.");
+      }
+    });
+  </script>
+</body>
+</html>
