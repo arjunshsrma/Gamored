@@ -2,29 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UPI Payment | Gamored</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPI Checkout | Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="stylesheet.css">
   <style>
-    body{font-family:system-ui,Arial;padding:24px;max-width:720px;margin:auto}
-    .card{border:1px solid #ddd;border-radius:12px;padding:20px;margin:16px 0}
-    label{display:block;margin:.5rem 0 .25rem}
-    input,textarea{width:100%;padding:.6rem;border:1px solid #ccc;border-radius:8px}
-    button{padding:.7rem 1rem;border:0;border-radius:10px;cursor:pointer}
-    .primary{background:#3aa757;color:#fff}
-    .muted{opacity:.75}
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    h1 { color: #3aa757; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin: 16px 0; }
+    label { display: block; margin: 8px 0 4px; font-weight: 600; }
+    input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 12px 20px; border: 0; border-radius: 10px; cursor: pointer; }
+    .primary { background: #3aa757; color: #fff; font-weight: 600; }
+    #status { margin-top: 10px; font-size: 0.9rem; opacity: 0.8; }
   </style>
 </head>
 <body>
-  <h1>Pay via UPI (Manual)</h1>
-  <p class="muted">Step 1: Pay the amount using UPI to the ID below. Step 2: Upload the payment screenshot. We’ll verify and confirm your order by email.</p>
+
+  <h1>UPI Payment</h1>
+  <p>Please pay the following amount via UPI and upload your payment screenshot:</p>
 
   <div class="card">
-    <h3>UPI Details</h3>
+    <h3>Amount to Pay</h3>
+    <p><strong>₹<span id="amount">0</span></strong></p>
     <p><strong>UPI ID:</strong> <span id="upiId">arjun@fampay</span></p>
-    <p><strong>Amount:</strong> ₹<span id="amount">499</span></p>
-    <p><em>You can also scan this QR in your UPI app:</em></p>
-    <!-- If you have a QR image, place it in /img/upi-qr.png -->
-    <img src="img/upi-qr.png" alt="UPI QR" style="max-width:220px;border:1px solid #eee;border-radius:10px">
+    <!-- Optional QR image -->
+    <!-- <img src="img/upi-qr.png" alt="UPI QR" style="max-width:200px;"> -->
   </div>
 
   <div class="card">
@@ -40,84 +42,72 @@
       <input id="customerEmail" type="email" placeholder="you@example.com" required>
 
       <label>Optional Note</label>
-      <textarea id="note" placeholder="Any info…"></textarea>
+      <textarea id="note" placeholder="Any message…"></textarea>
 
       <label>Upload Screenshot (PNG/JPG)</label>
       <input id="screenshot" type="file" accept="image/*" required>
 
       <button class="primary" type="submit">Send Screenshot</button>
-      <p id="status" class="muted"></p>
+      <p id="status"></p>
     </form>
   </div>
-<script>
-// Get the saved total from cart.html
-let AMOUNT = Number(localStorage.getItem('checkoutTotal') || 0);
-
-// If nothing found, show 0
-if (!AMOUNT || AMOUNT <= 0) {
-  AMOUNT = 0;
-  console.warn("No checkoutTotal found in localStorage.");
-}
-
-// Show it in the page if there's an element with id="amount"
-const amtEl = document.getElementById('amount');
-if (amtEl) amtEl.textContent = AMOUNT;
-</script>
 
   <script>
-    // 1) Set your values
-    const UPI_ID = "arjun@fampay";            // your FamPay UPI ID
-    const AMOUNT = 499;                       // set or compute from cart
-    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+    // ----------- READ AMOUNT FROM URL -----------
+    function getAmountFromURL(){
+      const m = /[?&]amount=([^&]+)/.exec(window.location.search);
+      return m ? Number(decodeURIComponent(m[1])) : 0;
+    }
+    let AMOUNT = getAmountFromURL();
+    document.getElementById('amount').textContent = AMOUNT;
 
-    // Fill UI
-    document.getElementById("upiId").textContent = UPI_ID;
-    document.getElementById("amount").textContent = AMOUNT;
+    // ----------- SETTINGS -----------
+    const UPI_ID = "arjun@fampay";  // your UPI ID
+    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // replace with your script.new URL
 
-    // 2) Convert file → base64
+    // ----------- FILE TO BASE64 -----------
     function fileToBase64(file){
       return new Promise((resolve,reject)=>{
         const r = new FileReader();
-        r.onload = () => resolve(r.result); // data URL
+        r.onload = ()=>resolve(r.result);
         r.onerror = reject;
         r.readAsDataURL(file);
       });
     }
 
-    // 3) Submit handler
-    document.getElementById("proofForm").addEventListener("submit", async (e)=>{
+    // ----------- FORM SUBMIT HANDLER -----------
+    document.getElementById('proofForm').addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const status = document.getElementById("status");
+      const status = document.getElementById('status');
       status.textContent = "Uploading… please wait";
 
-      const screenshotFile = document.getElementById("screenshot").files[0];
+      const screenshotFile = document.getElementById('screenshot').files[0];
       const screenshotBase64 = await fileToBase64(screenshotFile);
 
       const payload = {
-        customerName: document.getElementById("customerName").value,
-        customerEmail: document.getElementById("customerEmail").value,
-        orderId: document.getElementById("orderId").value,
+        customerName: document.getElementById('customerName').value,
+        customerEmail: document.getElementById('customerEmail').value,
+        orderId: document.getElementById('orderId').value,
         amount: AMOUNT,
         upiId: UPI_ID,
-        note: document.getElementById("note").value,
+        note: document.getElementById('note').value,
         screenshotBase64
       };
 
       try{
-        const res = await fetch(GAS_URL, {
+        await fetch(GAS_URL, {
           method: "POST",
-          mode: "no-cors", // Apps Script can work without CORS preflight
+          mode: "no-cors",
           headers: {"Content-Type":"application/json"},
           body: JSON.stringify(payload)
         });
-        // With no-cors, we can’t read response; just show success message:
         status.textContent = "Submitted! We’ll email you once verified.";
         alert("Thanks! Your screenshot was submitted. We’ll confirm soon.");
-        // window.location.href = "thankyou.html"; // optional
-      } catch (err){
+        // window.location.href = "thankyou.html"; // optional redirect
+      }catch(err){
         console.error(err);
         status.textContent = "Upload failed. Please try again.";
-        alert("Upload failed. Please try again or email the screenshot.");
+        alert("Upload failed. Please try again or email us the screenshot.");
       }
     });
   </script>
