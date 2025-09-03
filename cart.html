@@ -25,40 +25,36 @@ c
   <!-- CART SECTION -->
   <div class="form-section" id="cart-container"></div>
 
-  <script>
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+<!-- Save cart total + go to UPI checkout -->
+<script>
+// Convert "₹799" to 799
+function toNumber(v){ return Number(String(v).replace(/[^\d.]/g,'') || 0); }
 
-    function renderCart() {
-      const container = document.getElementById("cart-container");
-      if (cart.length === 0) {
-        container.innerHTML = "<h2>Your cart is empty.</h2>";
-        return;
-      }
+// Calculate cart total from localStorage
+function getCartTotal(){
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  return cart.reduce((sum, item)=>{
+    const price = toNumber(item.price);     // your cart items store price here
+    const qty   = Number(item.qty || 1);
+    return sum + price * qty;
+  }, 0);
+}
 
-      let html = "<h2>Items in Your Cart:</h2><ul>";
-      let total = 0;
+// When user clicks button, save total + open checkout page
+function goToUPICheckout(){
+  const total = Math.round(getCartTotal());
+  localStorage.setItem('checkoutTotal', String(total));
+  window.location.href = 'upi-checkout.html';
+}
+</script>
 
-      cart.forEach((item, index) => {
-        html += `<li>${item.name} - ₹${item.price}
-                   <button onclick="removeItem(${index})">Remove</button></li>`;
-        total += item.price;
-      });
-
-      html += `</ul><h3>Total: ₹${total}</h3>`;
-      container.innerHTML = html;
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    renderCart();
-  </script>
-  <a href="upi-checkout.html">
-  <button>Pay via UPI (Upload Screenshot)</button>
-</a>
+<div style="text-align:center;margin:24px 0;">
+  <button onclick="goToUPICheckout()" 
+    style="padding:12px 18px;border:0;border-radius:10px;
+    background:#3aa757;color:#fff;font-weight:600;cursor:pointer;">
+    Pay via UPI (Upload Screenshot)
+  </button>
+</div>
 
 </body>
 </html>
