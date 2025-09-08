@@ -4,16 +4,13 @@
   <meta charset="UTF-8">
   <title>UPI Checkout | Gamored</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Use your site styles (same as Contactus.html) -->
   <link rel="stylesheet" href="stylesheet.css">
   <style>
-    /* Tiny helpers in case some classes are missing — safe to keep */
     .page-wrap{max-width:1000px;margin:110px auto 40px;padding:0 16px}
     .section-title{margin:0 0 12px}
     .subtext{opacity:.85;margin:.25rem 0 1rem}
     .grid-2{display:grid;grid-template-columns:1fr;gap:16px}
     @media (min-width: 900px){ .grid-2{grid-template-columns:1fr 1fr} }
-    /* Match “card-like” form panels from Contactus look */
     .form-section, .panel {
       background:#fff;border:1px solid #e6e6e6;border-radius:12px;
       padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.06);
@@ -34,8 +31,6 @@
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR (same block you use across pages) -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
     <a href="index.html"><button>Home</button></a>
@@ -53,31 +48,25 @@
     <a href="cart.html"><button>Cart</button></a>
   </div>
 
-  <!-- PAGE CONTENT (mirrors Contactus layout) -->
   <div class="page-wrap">
     <h1 class="section-title">UPI Checkout</h1>
     <p class="subtext">Pay via UPI and upload your payment screenshot so we can verify and process your order.</p>
 
-    <!-- Two-panel layout like your contact page vibe -->
     <div class="grid-2">
 
-      <!-- LEFT: Amount to Pay (panel styled like a form block) -->
       <div class="panel form-section">
         <h3>Amount to Pay</h3>
         <p class="kpi"><strong>₹ <span id="amount">0</span></strong></p>
         <div class="field">
           <label>UPI ID</label>
-          <input id="upiIdField" value="arjun@fampay" readonly>
+          <input id="upiIdField" value="7042630996@fampay" readonly>
         </div>
-        <!-- Optional QR image: put your QR at /img/upi-qr.png -->
-        <!-- <img src="img/upi-qr.png" alt="UPI QR" style="max-width:220px;border:1px solid #eee;border-radius:10px"> -->
         <p id="amtWarning" class="warn" style="display:none">Amount is 0. Please go back to your cart and try again.</p>
         <div class="actions">
           <a href="cart.html" class="btn btn-ghost">← Back to Cart</a>
         </div>
       </div>
 
-      <!-- RIGHT: Submit Payment Proof (exactly like a contact form) -->
       <div class="form-section">
         <h3>Submit Payment Proof</h3>
         <form id="proofForm">
@@ -117,13 +106,9 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
   <script>
-    // ====== SETTINGS (edit these) ======
-    const UPI_ID = "arjun@fampay"; // TODO: replace with your UPI
-    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE"; // TODO: replace with your Apps Script /exec URL
-
-    // ====== AMOUNT SYNC (reads from ?amount=; fallback to cart) ======
+    const UPI_ID = "7042630996@fampay";
+    const GAS_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
     function getAmountFromURL(){
       const p = new URLSearchParams(location.search);
       const a = Number(p.get("amount"));
@@ -145,7 +130,6 @@
     document.getElementById("upiIdField").value = UPI_ID;
     if (!AMOUNT) document.getElementById("amtWarning").style.display = "block";
 
-    // ====== FILE → BASE64 ======
     function fileToBase64(file){
       return new Promise((resolve,reject)=>{
         const r = new FileReader();
@@ -155,7 +139,6 @@
       });
     }
 
-    // ====== SUBMIT HANDLER (same style as your contact form flow) ======
     document.getElementById("proofForm").addEventListener("submit", async (e)=>{
       e.preventDefault();
 
@@ -183,13 +166,12 @@
       try{
         await fetch(GAS_URL, {
           method: "POST",
-          mode: "no-cors", // like your Contactus form to Apps Script
+          mode: "no-cors",
           headers: {"Content-Type":"application/json"},
           body: JSON.stringify(payload)
         });
         status.textContent = "Submitted! We’ll email you once verified.";
         alert("Thanks! Your screenshot was submitted.");
-        // Optional: window.location.href = "thankyou.html";
       }catch(err){
         console.error(err);
         status.textContent = "Upload failed. Please try again.";
