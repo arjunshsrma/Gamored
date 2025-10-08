@@ -396,3 +396,57 @@
     margin-right: auto;
     width: 50%; /* optional, controls size */
 }
+
+/* === Centering & Image-Size Fix Patch (append at end of stylesheet.css) === */
+
+/* 1) Make all generic images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 2) Center hero/banner images that were given fixed inline widths in HTML */
+img[style*="width: 900px"],
+img[style*="width:900px"],
+img[alt*="banner"],
+img[alt*="Banner"],
+img[alt*="Welcome"]{
+  display: block !important;
+  margin: 12px auto !important;   /* center horizontally */
+  max-width: min(100%, 1100px);
+  height: auto !important;
+  border-radius: 12px;
+}
+
+/* 3) Center groups of product cards while keeping text inside cards left-aligned */
+section, .products, .cards, .items, .row, .columns {
+  text-align: center;              /* centers inline-block children like .card */
+}
+.card {                            /* your existing card stays inline-block */
+  display: inline-block;
+  text-align: left;                /* content inside card stays left */
+}
+
+/* 4) Optional: make cards wrap nicely on smaller screens */
+@media (max-width: 1050px){
+  .card { width: 320px; }
+}
+@media (max-width: 750px){
+  .card { width: 90%; max-width: 420px; }
+}
+
+/* 5) Ensure the top green header strip text stays centered vertically */
+.Po {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 6) Safety: if any big standalone image (not a card) looks too wide, cap it */
+main > img, section > img, .content > img {
+  display: block;
+  margin: 12px auto;
+  max-width: min(100%, 1100px);
+}
+
