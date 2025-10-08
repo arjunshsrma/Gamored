@@ -1,96 +1,119 @@
-/* ===== HOTFIX: make existing <ul>-based navbar horizontal & styled ===== */
+/* ===== Neon Dark Blue + Black Header (Razer-style) ===== */
 
-/* Top nav: first <ul> on the page = your current menu */
-body > ul:first-of-type{
-  list-style:none;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  padding:12px 16px;
-  margin:0 0 12px;
-  background:rgba(10,16,32,.45);
-  border-bottom:1px solid var(--line, #1f2a44);
-  position:sticky; top:0; z-index:100;
-  backdrop-filter: blur(10px);
-}
-body > ul:first-of-type li{ margin:0 }
-
-/* Buttons/links inside that nav (covers <a>, <button>, and <input type=...>) */
-body > ul:first-of-type a,
-body > ul:first-of-type button,
-body > ul:first-of-type input[type="button"],
-body > ul:first-of-type input[type="submit"],
-body > ul:first-of-type input[type="reset"]{
-  appearance:none; -webkit-appearance:none;
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:8px 12px;
-  border-radius:10px;
-  font:inherit;
-  color:var(--text, #e6ecff);
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line, #1f2a44);
-  text-decoration:none;
-  transition:.18s ease;
-}
-body > ul:first-of-type a:hover,
-body > ul:first-of-type button:hover,
-body > ul:first-of-type input[type="button"]:hover,
-body > ul:first-of-type input[type="submit"]:hover{
-  transform:translateY(-1px);
-  border-color:rgba(255,255,255,.18);
-  background:rgba(255,255,255,.10);
+header, .navbar, nav, body > ul:first-of-type {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: linear-gradient(180deg, #000000 0%, #050b18 90%);
+  border-bottom: 2px solid #0ff; /* neon edge */
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  padding: 12px 40px;
+  backdrop-filter: blur(8px);
 }
 
-/* Primary/CTA look if any item already has .primary or .add-to-cart */
-body > ul:first-of-type .primary,
-body > ul:first-of-type .add-to-cart{
-  background:linear-gradient(135deg, #3b82f6, #60a5fa);
-  border-color:transparent;
-  color:#fff;
+/* Logo on left */
+header img:first-of-type, .navbar img:first-of-type {
+  height: 50px;
+  margin-right: auto;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
 }
 
-/* Dropdown recovery (if you use .dropdown / .dropdown-content) */
-.dropdown{ position:relative }
-.dropdown-content{
-  position:absolute; left:0; top:calc(100% + 6px);
-  background:rgba(17,27,51,.98);
-  border:1px solid var(--line, #1f2a44);
-  border-radius:12px;
-  min-width:220px; padding:8px;
-  display:none;
-}
-.dropdown:hover .dropdown-content{ display:block }
-.dropdown-content a{
-  display:block; padding:8px 10px; border-radius:8px; color:var(--text, #e6ecff);
-}
-.dropdown-content a:hover{
-  background:rgba(255,255,255,.08);
+/* Nav links */
+.nav-links, body > ul, nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
 }
 
-/* Make ANY button/inputs elsewhere match the theme (not just nav) */
-button, .btn,
-input[type="button"], input[type="submit"], input[type="reset"]{
-  appearance:none; -webkit-appearance:none;
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:10px 16px; border-radius:12px;
-  border:1px solid var(--line, #1f2a44);
-  background:rgba(255,255,255,.06);
-  color:var(--text, #e6ecff);
-  transition:.18s ease;
-}
-button:hover, .btn:hover,
-input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover{
-  border-color:rgba(255,255,255,.18);
-  transform:translateY(-1px);
+.nav-links a, body > ul a, nav ul li a {
+  font-size: 16px;
+  font-weight: 500;
+  color: #b0c8ff;
+  text-decoration: none;
+  letter-spacing: 0.4px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-/* Keep big hero/banner images neat without changing your HTML */
-img[style*="width: 900px"],  /* common inline banner widths */
-img[style*="width:900px"]{
-  max-width: min(100%, 1100px);
-  height:auto !important;
-  border-radius:16px;
-  border:1px solid var(--line, #1f2a44);
-  box-shadow:0 10px 30px rgba(3,8,23,.4);
+/* Hover and active glow */
+.nav-links a:hover, 
+body > ul a:hover, 
+.nav-links a.active, 
+body > ul a.active {
+  color: #ffffff;
+  text-shadow: 0 0 6px #00bfff, 0 0 12px #0088ff;
+  border-bottom: 2px solid #00bfff;
+}
+
+/* Right-aligned buttons (Cart, Login etc.) */
+.nav-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
+
+.nav-actions .btn, button, input[type="button"] {
+  background: linear-gradient(135deg, #007bff, #00bfff);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.nav-actions .btn:hover, button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.6);
+}
+
+/* Dropdowns */
+.dropdown { position: relative; }
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: rgba(10, 16, 32, 0.95);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  display: none;
+  min-width: 180px;
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.25);
+}
+.dropdown:hover .dropdown-content { display: block; }
+
+.dropdown-content a {
+  display: block;
+  color: #b0c8ff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.dropdown-content a:hover {
+  background: rgba(0, 191, 255, 0.15);
+  color: #fff;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  header, .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 }
