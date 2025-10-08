@@ -1,202 +1,96 @@
-/* ===== Gamored "Crypto-Dark" Theme (CSS-only swap) =====
-   Visuals only. No functional/markup changes required.
-   If a selector doesn't exist in your HTML, it's harmless.
-*/
+/* ===== HOTFIX: make existing <ul>-based navbar horizontal & styled ===== */
 
-/* ---------- Design Tokens ---------- */
-:root{
-  --bg-0:#050b18;
-  --bg-1:#0b1220;
-  --bg-2:#0d1426;
-  --panel:#0f172a;
-  --panel-2:#101a34;
-  --line:#1f2a44;
-  --muted:#9fb0cf;
-  --text:#e6ecff;
-  --text-dim:#b9c7e6;
-
-  --brand:#3b82f6;   /* primary */
-  --brand-2:#60a5fa; /* lighter accent */
-  --success:#10b981;
-  --danger:#ef4444;
-
-  --r-xl:1.25rem;
-  --r-lg:1rem;
-  --r:0.75rem;
-
-  --shadow-1:0 10px 30px rgba(3, 8, 23, .6);
-  --shadow-2:0 8px 28px rgba(9, 20, 50, .55);
-}
-
-/* ---------- Base ---------- */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 800px at 80% -10%, rgba(59,130,246,.12), transparent 60%),
-    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 35%, var(--bg-2) 100%);
-}
-
-/* fallback for any previous solid backgrounds */
-.Po, .Po2, .Po3{background:transparent !important;color:var(--text)}
-.active{background-color:rgba(255,255,255,.04)}
-
-/* links, images, lists */
-a{color:inherit;text-decoration:none}
-a:hover{color:#fff;opacity:.95}
-img{max-width:100%;display:block}
-ul{padding-left:1.1rem}
-hr, .divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
-
-/* containers (generic) */
-.container{max-width:1200px;margin-inline:auto;padding:24px}
-.section{padding:48px 0}
-
-/* ---------- Buttons ---------- */
-button, .btn{
-  cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 16px;border-radius:12px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-  color:var(--text);
-  transition:.2s ease;
-  box-shadow:none;
-}
-button:hover, .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.12)}
-button:active, .btn:active{transform:translateY(0)}
-/* primary intent */
-.btn.primary, button.primary, .add-to-cart, .submit, .primary{
-  background:linear-gradient(135deg, var(--brand), var(--brand-2));
-  border-color:transparent;font-weight:600;color:#fff !important;
-}
-.btn.primary:hover, button.primary:hover, .add-to-cart:hover{
-  filter:brightness(1.05);box-shadow:0 10px 30px rgba(59,130,246,.25)
-}
-
-/* ---------- Navbar (works with your existing nav markup) ---------- */
-.navbar, header nav, .topbar{
-  position:sticky;top:0;z-index:50;
-  backdrop-filter: blur(10px);
+/* Top nav: first <ul> on the page = your current menu */
+body > ul:first-of-type{
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  padding:12px 16px;
+  margin:0 0 12px;
   background:rgba(10,16,32,.45);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid var(--line, #1f2a44);
+  position:sticky; top:0; z-index:100;
+  backdrop-filter: blur(10px);
 }
-.nav-inner, nav .inner, .nav{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px
+body > ul:first-of-type li{ margin:0 }
+
+/* Buttons/links inside that nav (covers <a>, <button>, and <input type=...>) */
+body > ul:first-of-type a,
+body > ul:first-of-type button,
+body > ul:first-of-type input[type="button"],
+body > ul:first-of-type input[type="submit"],
+body > ul:first-of-type input[type="reset"]{
+  appearance:none; -webkit-appearance:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 12px;
+  border-radius:10px;
+  font:inherit;
+  color:var(--text, #e6ecff);
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line, #1f2a44);
+  text-decoration:none;
+  transition:.18s ease;
 }
-.brand, .logo-title{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
-.brand .logo, .logo{
-  width:28px;height:28px;border-radius:8px;
-  background:linear-gradient(135deg, var(--brand), var(--brand-2));
-  box-shadow:0 0 0 3px rgba(59,130,246,.15);
-}
-.nav-links, .menu{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.nav-links a, .menu a{
-  padding:10px 12px;border-radius:10px;color:var(--text-dim);border:1px solid transparent;
-}
-.nav-links a:hover, .menu a:hover, .nav-links a.active{
-  color:var(--text);border-color:rgba(255,255,255,.06);background:rgba(255,255,255,.02)
+body > ul:first-of-type a:hover,
+body > ul:first-of-type button:hover,
+body > ul:first-of-type input[type="button"]:hover,
+body > ul:first-of-type input[type="submit"]:hover{
+  transform:translateY(-1px);
+  border-color:rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);
 }
 
-/* ---------- Hero / Banners (generic) ---------- */
-.hero, .banner, .hero-section{padding:56px 0 16px}
-.hero h1, .banner h1{
-  font-size: clamp(28px, 4.2vw, 46px);
-  line-height:1.08;margin:0 0 12px;letter-spacing:.2px
-}
-.hero p, .banner p{color:var(--text-dim);max-width:60ch}
-
-/* artwork/card background if you have an image container */
-.hero-art, .banner-art, .hero-image{
-  border-radius:var(--r-xl);
-  background:
-    radial-gradient(600px 400px at 30% 10%, rgba(59,130,246,.25), transparent 40%),
-    linear-gradient(145deg, #0a142a, #0e1a34);
-  border:1px solid var(--line);
-  box-shadow:var(--shadow-1);
-  overflow:hidden;
+/* Primary/CTA look if any item already has .primary or .add-to-cart */
+body > ul:first-of-type .primary,
+body > ul:first-of-type .add-to-cart{
+  background:linear-gradient(135deg, #3b82f6, #60a5fa);
+  border-color:transparent;
+  color:#fff;
 }
 
-/* ---------- Generic Card / Panels ---------- */
-.card, .panel, .product, .item, .box{
-  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
-  padding:18px;
-  box-shadow:var(--shadow-2);
+/* Dropdown recovery (if you use .dropdown / .dropdown-content) */
+.dropdown{ position:relative }
+.dropdown-content{
+  position:absolute; left:0; top:calc(100% + 6px);
+  background:rgba(17,27,51,.98);
+  border:1px solid var(--line, #1f2a44);
+  border-radius:12px;
+  min-width:220px; padding:8px;
+  display:none;
 }
-.card h3{margin:0 0 6px}
-.card p{color:var(--text-dim);margin:0 0 14px}
-
-/* ---------- Product Grid (works with common classnames) ---------- */
-.product-grid, .grid-products, .products{
-  display:grid;grid-template-columns:repeat(12,1fr);gap:18px
+.dropdown:hover .dropdown-content{ display:block }
+.dropdown-content a{
+  display:block; padding:8px 10px; border-radius:8px; color:var(--text, #e6ecff);
 }
-.product-card, .product-item, .product{
-  grid-column:span 4; display:flex;flex-direction:column;gap:12px
-}
-.product-card .img, .product .img, .thumb, .image{
-  border-radius:14px;overflow:hidden;border:1px solid var(--line);
-  background:#0b1327; aspect-ratio:4/3; display:flex;align-items:center;justify-content:center
-}
-.price{font-weight:700}
-
-/* ---------- Forms (Contact etc.) ---------- */
-form{display:grid;gap:14px}
-input, select, textarea, .input{
-  width:100%; padding:12px 14px; border-radius:12px; color:var(--text);
-  background:rgba(255,255,255,.03); border:1px solid var(--line); outline:none; transition:.2s;
-}
-input::placeholder, textarea::placeholder{color:#93a2c0}
-input:focus, textarea:focus, select:focus{
-  border-color:rgba(59,130,246,.55); box-shadow:0 0 0 4px rgba(59,130,246,.18)
-}
-textarea{min-height:140px;resize:vertical}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
-/* ---------- Tables (if present) ---------- */
-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-thead th{background:rgba(255,255,255,.03)}
-th, td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text-dim)}
-tbody tr:hover{background:rgba(255,255,255,.02)}
-
-/* ---------- Toasts (works with your existing JS) ---------- */
-.toast{
-  position:fixed;right:16px;bottom:16px;z-index:99;display:none;
-  background:rgba(17,27,51,.92);color:var(--text);
-  padding:12px 16px;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-2)
-}
-.toast.show{display:block}
-
-/* ---------- Cart (generic hooks) ---------- */
-.cart-wrap{display:grid;grid-template-columns:2fr 1fr;gap:20px}
-.cart-item{
-  display:grid;grid-template-columns:80px 1fr auto;gap:12px;align-items:center;
-  padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)
-}
-.cart-summary{position:sticky;top:90px;align-self:start}
-.total{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-weight:700}
-
-/* ---------- Footer ---------- */
-footer, .footer{
-  border-top:1px solid var(--line);
-  padding:28px 0;color:var(--muted);font-size:14px;background:rgba(255,255,255,.02)
+.dropdown-content a:hover{
+  background:rgba(255,255,255,.08);
 }
 
-/* ---------- Legacy hover from your old CSS ---------- */
-button:hover{background-color:rgba(255,255,255,.04)}
-
-/* ---------- Responsive ---------- */
-@media (max-width:1024px){
-  .hero, .banner{padding-top:36px}
-  .product-card, .product{grid-column:span 6}
-  .cart-wrap{grid-template-columns:1fr}
+/* Make ANY button/inputs elsewhere match the theme (not just nav) */
+button, .btn,
+input[type="button"], input[type="submit"], input[type="reset"]{
+  appearance:none; -webkit-appearance:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 16px; border-radius:12px;
+  border:1px solid var(--line, #1f2a44);
+  background:rgba(255,255,255,.06);
+  color:var(--text, #e6ecff);
+  transition:.18s ease;
 }
-@media (max-width:640px){
-  .nav-links, .menu{display:none} /* mobile simplification */
-  .product-card, .product{grid-column:span 12}
-  .form-row{grid-template-columns:1fr}
+button:hover, .btn:hover,
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover{
+  border-color:rgba(255,255,255,.18);
+  transform:translateY(-1px);
+}
+
+/* Keep big hero/banner images neat without changing your HTML */
+img[style*="width: 900px"],  /* common inline banner widths */
+img[style*="width:900px"]{
+  max-width: min(100%, 1100px);
+  height:auto !important;
+  border-radius:16px;
+  border:1px solid var(--line, #1f2a44);
+  box-shadow:0 10px 30px rgba(3,8,23,.4);
 }
