@@ -117,3 +117,86 @@ body > ul a.active {
     gap: 16px;
   }
 }
+/* ===== Razer-like Header: black + neon dark blue (CSS-only, keeps your HTML) ===== */
+:root { --headerH: 76px; --neon: #00b7ff; --hdrBG1:#000; --hdrBG2:#061226; }
+
+/* 1) Header bar backdrop */
+body::before{
+  content:"";
+  position:fixed; top:0; left:0; right:0; height:var(--headerH);
+  z-index:998;
+  background: linear-gradient(180deg, var(--hdrBG1) 0%, var(--hdrBG2) 100%);
+  border-bottom:2px solid var(--neon);
+  box-shadow:0 0 25px rgba(0,183,255,.18) inset, 0 8px 24px rgba(0,0,0,.45);
+}
+body{ padding-top:var(--headerH); }
+
+/* 2) Logo (your first <img> at the top) -> left */
+body > img:first-of-type{
+  position:fixed; top:14px; left:16px; height:48px; width:auto;
+  z-index:999; display:block;
+  filter: drop-shadow(0 0 8px rgba(0,183,255,.55));
+}
+
+/* 3) Place your three UL menus in one row (two center, one right) */
+body > ul{
+  position:fixed; top:20px; z-index:999;
+  list-style:none; margin:0; padding:0; display:flex; gap:22px;
+  background:transparent; /* kill any old backgrounds */
+}
+body > ul:nth-of-type(1){ left: 120px; }  /* first group (e.g., Home) */
+body > ul:nth-of-type(2){ left: 320px; }  /* second group (e.g., Products/dropdown) */
+body > ul:nth-of-type(3){ right: 16px; }  /* right group (Contact/About/Cart) */
+
+/* 4) Make header links look like links (not pills) */
+body > ul a,
+body > ul button,
+body > ul input[type="button"],
+body > ul input[type="submit"],
+body > ul input[type="reset"]{
+  all: unset;              /* wipe inherited button styles */
+  cursor: pointer;
+  font: 500 15px/1.1 ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,sans-serif;
+  color:#b0c8ff;
+  padding:10px 6px;
+  border-bottom:2px solid transparent;
+  transition: color .18s ease, border-color .18s ease, text-shadow .18s ease;
+}
+body > ul a:hover,
+body > ul button:hover,
+body > ul input[type="button"]:hover,
+body > ul input[type="submit"]:hover{
+  color:#fff;
+  border-bottom-color:var(--neon);
+  text-shadow:0 0 6px var(--neon), 0 0 12px #0088ff;
+}
+
+/* 5) Dropdown (if you use one on Products) */
+.dropdown{ position:relative }
+.dropdown-content{
+  position:absolute; top:calc(100% + 8px); left:0; min-width:200px;
+  background:rgba(6,18,38,.96);
+  border:1px solid rgba(0,183,255,.35);
+  border-radius:10px; padding:10px; display:none;
+  box-shadow:0 0 18px rgba(0,183,255,.22);
+}
+.dropdown:hover .dropdown-content{ display:block }
+.dropdown-content a{ display:block; padding:8px 10px; border-radius:6px; color:#b0c8ff }
+.dropdown-content a:hover{ background:rgba(0,183,255,.16); color:#fff }
+
+/* 6) Desktop hero banner tidy (optional) */
+img[style*="width: 900px"], img[style*="width:900px"]{
+  display:block !important; margin:14px auto !important;
+  max-width:min(100%,1100px); height:auto !important;
+  border-radius:14px; border:1px solid rgba(0,183,255,.15);
+  box-shadow:0 10px 30px rgba(3,8,23,.45);
+}
+
+/* 7) Mobile: stack nav cleanly */
+@media (max-width: 900px){
+  body::before{ height: 120px }
+  body{ padding-top: 120px }
+  body > img:first-of-type{ top:12px; left:50%; transform:translateX(-50%); }
+  body > ul{ top:70px; left:12px !important; right:auto !important; gap:14px; flex-wrap:wrap }
+  body > ul:nth-of-type(3){ right:12px !important; left:auto !important; }
+}
