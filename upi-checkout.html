@@ -21,6 +21,8 @@ form input,form select{width:100%;padding:10px;border:1px solid var(--border);bo
 .toast{margin-top:12px;padding:10px;border-radius:10px}
 .qr{display:flex;justify-content:center;margin:12px 0}
 .qr img{width:160px;height:160px;border-radius:12px}
+.err{background:#fdeaea;border:1px solid #f1b1b1}
+.ok{background:#e7f6e7;border:1px solid #b6e2b6}
 </style>
 </head>
 <body>
@@ -47,7 +49,7 @@ form input,form select{width:100%;padding:10px;border:1px solid var(--border);bo
 </div>
 <p style="text-align:center;">Scan the QR above or <a id="upiLink" href="#" style="color:var(--accent);font-weight:600;">click here to pay via UPI app</a></p>
 
-<form id="upiCheckoutForm" enctype="multipart/form-data">
+<form id="upiCheckoutForm">
 <h3>Contact Details</h3>
 <label for="fullName">Full Name</label>
 <input id="fullName" name="fullName" type="text" required>
@@ -92,8 +94,8 @@ form input,form select{width:100%;padding:10px;border:1px solid var(--border);bo
 <script>
 (function(){
   try{
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const amount = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+    const cart=JSON.parse(localStorage.getItem('cart')||'[]');
+    const amount=cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
     document.getElementById('amountValue').textContent=amount.toFixed(2);
     document.getElementById('itemCount').textContent=cart.length;
     document.getElementById('orderAmount').value=amount.toFixed(2);
@@ -119,56 +121,51 @@ shotInput.addEventListener('change',()=>{
   shotPreview.appendChild(img);
 });
 
-const fileToBase64 = (file) =>
-  new Promise((resolve,reject)=>{
-    const r=new FileReader();
-    r.onload=()=>resolve(String(r.result).split(',')[1]); // strip data:...;base64,
-    r.onerror=reject;
-    r.readAsDataURL(file);
-  });
+// File -> base64 (no custom headers; we still submit via FormData)
+const fileToBase64=(file)=>new Promise((resolve,reject)=>{
+  const r=new FileReader();
+  r.onload=()=>resolve(String(r.result).split(',')[1]);
+  r.onerror=reject;
+  r.readAsDataURL(file);
+});
 
-const GAS_URL='https://script.google.com/macros/s/AKfycbwaSYsWsPfvIFKqj2RPe1nsdrl6v9-DnmQLbiclhvu6h53HGgbyh6UsIGNGPWuayosbrg/exec';
+const GAS_URL='https://script.google.com/macros/s/AKfycbyILp17k86wL1zw2deDcb2QoBWGkjFZYKSigC5jGm8GDpJh1b1F_gtWIsKSBcZTIhlXgw/exec';
+
 document.getElementById('upiCheckoutForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const btn=document.getElementById('sendBtn');
   const msg=document.getElementById('formMsg');
-  btn.disabled=true;btn.textContent='Sending...';msg.style.display='none';
+  btn.disabled=true;btn.textContent='Sending...';msg.style.display='none';msg.className='toast';
 
   try{
-    const form = new FormData(e.target);
-    const file = shotInput.files && shotInput.files[0];
-    if(!file) throw new Error('Please attach a screenshot.');
+    const file=shotInput.files&&shotInput.files[0];
+    if(!file) throw new Error('Attach a screenshot.');
 
-    const b64 = await fileToBase64(file);
+    const b64=await fileToBase64(file);
 
-    const payload = {};
-    form.forEach((v,k)=>payload[k]=v);
-    payload.screenshot_b64 = b64;
-    payload.screenshot_name = file.name || 'payment.png';
-    payload.screenshot_type = file.type || 'image/png';
+    const formEl=e.target;
+    const fd=new FormData(formEl);
+    fd.delete('screenshot'); // we’ll send base64 fields instead
+    fd.append('screenshot_b64', b64);
+    fd.append('screenshot_name', file.name || 'payment.png');
+    fd.append('screenshot_type', file.type || 'image/png');
 
-    const res = await fetch(GAS_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const res=await fetch(GAS_URL,{ method:'POST', body: fd });
+    const text=await res.text();
+    if(!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0,200)}`);
+    let data; try{ data=JSON.parse(text) }catch{ data={message:text} }
 
-    msg.textContent=data.message || 'Submitted!';
+    msg.textContent=data.message||'Submitted!';
+    msg.className='toast ok';
     msg.style.display='block';
-    msg.style.background='#e7f6e7';
-    msg.style.border='1px solid #b6e2b6';
   }catch(err){
-    msg.textContent='Could not send. Try again.';
+    msg.textContent=`Send failed → ${err.message}`;
+    msg.className='toast err';
     msg.style.display='block';
-    msg.style.background='#fdeaea';
-    msg.style.border='1px solid #f1b1b1';
   }finally{
     btn.disabled=false;btn.textContent='Send';
   }
 });
 </script>
-
 </body>
 </html>
