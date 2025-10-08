@@ -157,6 +157,11 @@
     margin-top: 15px;
     font-style: italic;
   }
+/* ===== Gamored "Crypto-Dark" Theme =====
+   Visual goals: deep navy gradient, glassy cards, thin dividers,
+   cool-blue primary, subtle glow on focus/hover.
+   Functionality: unchanged.
+*/
 
   .product-card {
     background-color: rgba(145, 210, 49, 0.2);
@@ -396,57 +401,199 @@
     margin-right: auto;
     width: 50%; /* optional, controls size */
 }
+/* ---------- CSS Variables ---------- */
+:root{
+  --bg-0:#050b18;
+  --bg-1:#0b1220;
+  --bg-2:#0d1426;
+  --card:#0f172a;
+  --card-2:#111b33;
+  --line:#1f2a44;
+  --muted:#9fb0cf;
+  --text:#e6ecff;
+  --text-dim:#b9c7e6;
+  --brand:#3b82f6;      /* Primary */
+  --brand-2:#60a5fa;    /* Lighter */
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
 
-/* === Centering & Image-Size Fix Patch (append at end of stylesheet.css) === */
+  --radius-xl:1.25rem;
+  --radius-lg:1rem;
+  --radius:0.75rem;
 
-/* 1) Make all generic images responsive */
-img {
-  max-width: 100%;
-  height: auto;
+  --shadow-1:0 10px 30px rgba(3, 8, 23, .6);
+  --shadow-2:0 8px 28px rgba(9, 20, 50, .55);
+  --glow:0 0 0px rgba(59,130,246,0), 0 0 0px rgba(59,130,246,0);
 }
 
-/* 2) Center hero/banner images that were given fixed inline widths in HTML */
-img[style*="width: 900px"],
-img[style*="width:900px"],
-img[alt*="banner"],
-img[alt*="Banner"],
-img[alt*="Welcome"]{
-  display: block !important;
-  margin: 12px auto !important;   /* center horizontally */
-  max-width: min(100%, 1100px);
-  height: auto !important;
-  border-radius: 12px;
+/* ---------- Base ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 800px at 80% -10%, rgba(59,130,246,.12), transparent 60%),
+    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 35%, var(--bg-2) 100%);
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ---------- Layout Helpers ---------- */
+.container{max-width:1200px;margin-inline:auto;padding:24px}
+.section{padding:48px 0}
+.grid{display:grid;gap:24px}
+.divider{height:1px;background:linear-gradient(90deg, transparent, var(--line), transparent)}
+
+/* ---------- Top Nav ---------- */
+.navbar{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background:rgba(10,16,32,.45);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px}
+.brand{
+  display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px
+}
+.brand .logo{
+  width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow:0 0 0 3px rgba(59,130,246,.15);
+}
+.nav-links{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.nav-links a{
+  padding:10px 12px;border-radius:10px;color:var(--text-dim);border:1px solid transparent;
+}
+.nav-links a.active, .nav-links a:hover{
+  color:var(--text);
+  border-color:rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
 }
 
-/* 3) Center groups of product cards while keeping text inside cards left-aligned */
-section, .products, .cards, .items, .row, .columns {
-  text-align: center;              /* centers inline-block children like .card */
+/* Login / Cart buttons */
+.btn{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--text); transition:.2s ease; box-shadow:var(--glow);
 }
-.card {                            /* your existing card stays inline-block */
-  display: inline-block;
-  text-align: left;                /* content inside card stays left */
+.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.12)}
+.btn.primary{
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  border-color:transparent;font-weight:600;
+}
+.btn.primary:hover{filter:brightness(1.05);box-shadow:0 10px 30px rgba(59,130,246,.25)}
+.btn.ghost{background:transparent}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:56px 0 12px;
+}
+.hero-wrap{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center
+}
+.hero h1{
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height:1.08;margin:0 0 14px;
+  letter-spacing:.2px;
+}
+.hero p{
+  color:var(--text-dim);max-width:60ch;margin:0 0 22px;font-size:clamp(14px,1.5vw,16px)
+}
+.hero-art{
+  border-radius:var(--radius-xl);
+  background:
+    radial-gradient(600px 400px at 30% 10%, rgba(59,130,246,.25), transparent 40%),
+    linear-gradient(145deg, #0a142a, #0e1a34);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-1);
+  aspect-ratio: 4/3; display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.badge{
+  padding:6px 10px;border-radius:999px;font-size:12px;color:var(--text-dim);
+  border:1px solid var(--line);background:rgba(255,255,255,.02)
 }
 
-/* 4) Optional: make cards wrap nicely on smaller screens */
-@media (max-width: 1050px){
-  .card { width: 320px; }
+/* ---------- Stats Row ---------- */
+.stats{
+  margin:28px 0 0;padding:16px;border:1px solid var(--line);border-radius:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
 }
-@media (max-width: 750px){
-  .card { width: 90%; max-width: 420px; }
+.stats ul{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0;padding:0;list-style:none}
+.stats li{
+  padding:16px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.04);
+  background:rgba(255,255,255,.01);text-align:center
+}
+.stats .num{font-size:22px;font-weight:700}
+.stats .cap{color:var(--muted);font-size:12px}
+
+/* ---------- Cards & Product Grid ---------- */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border:1px solid var(--line); border-radius:var(--radius-lg); padding:18px;
+  box-shadow:var(--shadow-2);
+}
+.card h3{margin:0 0 6px}
+.card p{color:var(--text-dim);margin:0 0 14px}
+
+.product-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.product-card{grid-column:span 4; display:flex;flex-direction:column;gap:12px}
+.product-card .img{
+  border-radius:14px;overflow:hidden;border:1px solid var(--line);
+  background:#0b1327; aspect-ratio:4/3; display:flex;align-items:center;justify-content:center
+}
+.price{font-weight:700}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- Forms (Contact, Checkout) ---------- */
+form{display:grid;gap:14px}
+.input, select, textarea{
+  width:100%; padding:12px 14px; border-radius:12px; color:var(--text);
+  background:rgba(255,255,255,.03); border:1px solid var(--line); outline:none; transition:.2s;
+}
+.input::placeholder, textarea::placeholder{color:#93a2c0}
+.input:focus, textarea:focus, select:focus{
+  border-color:rgba(59,130,246,.55); box-shadow:0 0 0 4px rgba(59,130,246,.18)
+}
+textarea{min-height:140px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ---------- Toasts (existing JS should toggle .toast) ---------- */
+.toast{
+  position:fixed;right:16px;bottom:16px;z-index:99;display:none;
+  background:rgba(17,27,51,.85);color:var(--text);
+  padding:12px 16px;border-radius:12px;border:1px solid var(--line);box-shadow:var(--shadow-2)
+}
+.toast.show{display:block}
+
+/* ---------- Cart ---------- */
+.cart-wrap{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.cart-item{
+  display:grid;grid-template-columns:80px 1fr auto;gap:12px;align-items:center;
+  padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)
+}
+.cart-summary{
+  position:sticky;top:90px;align-self:start
+}
+.total{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-weight:700}
+
+/* ---------- Footer ---------- */
+.footer{
+  border-top:1px solid var(--line);
+  padding:28px 0;color:var(--muted);font-size:14px;background:rgba(255,255,255,.02)
 }
 
-/* 5) Ensure the top green header strip text stays centered vertically */
-.Po {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px){
+  .hero-wrap{grid-template-columns:1fr}
+  .stats ul{grid-template-columns:repeat(2,1fr)}
+  .product-card{grid-column:span 6}
+  .cart-wrap{grid-template-columns:1fr}
 }
-
-/* 6) Safety: if any big standalone image (not a card) looks too wide, cap it */
-main > img, section > img, .content > img {
-  display: block;
-  margin: 12px auto;
-  max-width: min(100%, 1100px);
+@media (max-width: 640px){
+  .nav-links{display:none} /* keep simple on mobile */
+  .product-card{grid-column:span 12}
+  .form-row{grid-template-columns:1fr}
 }
-
