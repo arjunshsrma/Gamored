@@ -5,142 +5,183 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gamored — UPI Checkout</title>
 <link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="stylesheet.css">
 <style>
-:root{--accent:#16a34a;--border:#d1d5db;}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:#fff;color:#111827;line-height:1.4}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:14px 5%;background:#0a0f0a;color:#fff}
-.nav a{color:#fff;text-decoration:none;margin:0 12px;font-weight:600}
-.checkout-card{max-width:720px;margin:24px auto;padding:20px;border-radius:16px;background:#f9fafb}
-.card{padding:12px 16px;border:1px solid var(--border);border-radius:12px;margin-bottom:16px}
-form label{display:block;margin-top:10px;font-weight:600}
-form input,form select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;margin-top:6px}
-.grid-2{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
-.btn-primary{margin-top:16px;padding:12px 16px;border:0;border-radius:12px;cursor:pointer;font-weight:700;background:var(--accent);color:#fff}
-.toast{margin-top:12px;padding:10px;border-radius:10px}
-.qr{display:flex;justify-content:center;margin:12px 0}
-.qr img{width:160px;height:160px;border-radius:12px}
+  .wrap { max-width: 1000px; margin: 40px auto; padding: 0 16px; }
+  .row { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; }
+  .panel { background: rgba(145,210,49,0.2); border: 2px solid rgb(101,219,95); border-radius: 12px; padding: 18px; }
+  .panel h3 { color: rgb(0,148,27); margin: 0 0 10px 0; }
+  .sum-line { display:flex; justify-content:space-between; color:#0f7f14; margin: 6px 0; }
+  .sum-total { font-size: 32px; color:#24e746; font-weight: 800; }
+  .qr-box { display:flex; flex-direction:column; align-items:center; gap:10px; margin-top: 12px; }
+  .qr-box img { width: 220px; height: 220px; border-radius: 10px; background:#fff; border:2px solid rgb(101,219,95); }
+  .link-upi { color:#0f7f14; font-weight: bold; text-decoration: underline; }
+  .inline-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+  .shot-preview img { max-width: 240px; border-radius: 10px; border: 2px solid rgb(101,219,95); display:block; }
+  .note { color:#bfffc4; text-align:center; margin-top:10px; }
+  @media (max-width: 900px) { .row { grid-template-columns: 1fr; } .qr-box img { width: 200px; height:200px; } }
 </style>
 </head>
 <body>
-<nav class="nav">
-<div class="logo"><a href="index.html">Gamored</a></div>
-<div>
-<a href="index.html">Home</a>
-<a href="Laptopaccessories.html">Products</a>
-<a href="cart.html">Cart</a>
+<div class="Po">Gamored — UPI Checkout</div>
+
+<div class="wrap">
+  <div class="row">
+    <section class="form-section">
+      <h2>Enter Details & Confirm Payment</h2>
+      <form id="upiCheckoutForm" enctype="multipart/form-data">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" pattern="[0-9]{10}" placeholder="10-digit mobile" required>
+
+        <h2>Address</h2>
+        <div class="inline-2">
+          <div>
+            <label for="state">State</label>
+            <input id="state" name="state" type="text" required>
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" required>
+          </div>
+          <div>
+            <label for="pincode">Pincode</label>
+            <input id="pincode" name="pincode" type="text" pattern="[0-9]{6}" required>
+          </div>
+          <div>
+            <label for="houseNo">House no./Building</label>
+            <input id="houseNo" name="houseNo" type="text" required>
+          </div>
+        </div>
+
+        <label for="address1">Address Line 1</label>
+        <input id="address1" name="address1" type="text" required>
+
+        <label for="address2">Address Line 2</label>
+        <input id="address2" name="address2" type="text">
+
+        <div class="inline-2">
+          <div>
+            <label for="landmark">Landmark</label>
+            <input id="landmark" name="landmark" type="text">
+          </div>
+          <div>
+            <label for="addressType">Address Type</label>
+            <input id="addressType" name="addressType" type="text" placeholder="Home / Office / Other">
+          </div>
+        </div>
+
+        <h2>Payment Proof</h2>
+        <div class="inline-2">
+          <div>
+            <label for="upiRef">UPI Transaction ID</label>
+            <input id="upiRef" name="upiRef" type="text" placeholder="UTR / Ref No." required>
+          </div>
+          <div>
+            <label for="screenshot">Upload Screenshot</label>
+            <input id="screenshot" name="screenshot" type="file" accept="image/*" required>
+          </div>
+        </div>
+        <div id="shotPreview" class="shot-preview"></div>
+
+        <input type="hidden" id="orderAmount" name="orderAmount" value="">
+        <input type="hidden" id="orderItemsJson" name="orderItemsJson" value="[]">
+        <input type="hidden" id="orderId" name="orderId" value="">
+
+        <input type="submit" value="Send">
+        <div id="formMsg" class="toast"></div>
+      </form>
+    </section>
+
+    <aside class="panel">
+      <h3>Order Summary</h3>
+      <div class="sum-line"><span>Items</span><span id="itemCount">0</span></div>
+      <div class="sum-line"><span>Payment Method</span><span>UPI</span></div>
+      <hr>
+      <div class="sum-line" style="align-items:flex-end;">
+        <span>Total</span>
+        <span class="sum-total">₹<span id="amountValue">0</span></span>
+      </div>
+
+      <div class="qr-box">
+        <img id="upiQR" alt="UPI QR">
+        <a id="upiLink" class="link-upi" href="#">Tap to pay via UPI app</a>
+        <button id="copyUpiBtn">Copy UPI ID</button>
+      </div>
+      <div class="note">Use any UPI app to pay <b>₹<span id="amountValue2">0</span></b> to <b>7042630996@fam</b>, then submit the form.</div>
+    </aside>
+  </div>
 </div>
-</nav>
-
-<section class="checkout-card">
-<h2>UPI Checkout</h2>
-
-<div id="order-summary" class="card">
-<h3>Order Summary</h3>
-<p><strong>Amount:</strong> ₹<span id="amountValue">0</span></p>
-<p><strong>Items:</strong> <span id="itemCount">0</span></p>
-</div>
-
-<div class="qr">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=your-upi-id@bank&pn=Gamored&cu=INR&am=0" id="upiQR" alt="UPI QR">
-</div>
-<p style="text-align:center;">Scan the QR above or <a id="upiLink" href="#" style="color:var(--accent);font-weight:600;">click here to pay via UPI app</a></p>
-
-<form id="upiCheckoutForm" enctype="multipart/form-data">
-<h3>Contact Details</h3>
-<label for="fullName">Full Name</label>
-<input id="fullName" name="fullName" type="text" required>
-<label for="email">Email</label>
-<input id="email" name="email" type="email" required>
-<label for="phone">Phone</label>
-<input id="phone" name="phone" type="tel" pattern="[0-9]{10}" required>
-
-<h3>Address Details</h3>
-<div class="grid-2">
-<div><label for="state">State</label><input id="state" name="state" type="text" required></div>
-<div><label for="city">City</label><input id="city" name="city" type="text" required></div>
-<div><label for="pincode">Pincode</label><input id="pincode" name="pincode" type="text" pattern="[0-9]{6}" required></div>
-<div><label for="houseNo">House No./Building</label><input id="houseNo" name="houseNo" type="text" required></div>
-</div>
-<label for="address1">Address Line 1</label>
-<input id="address1" name="address1" type="text" required>
-<label for="address2">Address Line 2</label>
-<input id="address2" name="address2" type="text">
-<div class="grid-2">
-<div><label for="landmark">Landmark</label><input id="landmark" name="landmark" type="text"></div>
-<div><label for="addressType">Address Type</label>
-<select id="addressType" name="addressType"><option>Home</option><option>Office</option><option>Other</option></select></div>
-</div>
-
-<h3>Payment Proof</h3>
-<p>Upload your payment screenshot (PNG/JPG)</p>
-<input id="screenshot" name="screenshot" type="file" accept="image/*" required>
-<div id="shotPreview" style="margin-top:8px;"></div>
-
-<input type="hidden" id="orderAmount" name="orderAmount" value="">
-<input type="hidden" id="orderItemsJson" name="orderItemsJson" value="[]">
-<input type="hidden" id="orderId" name="orderId" value="">
-<input type="hidden" id="upiRef" name="upiRef" value="">
-
-<button type="submit" id="sendBtn" class="btn-primary">Send</button>
-<div id="formMsg" class="toast" style="display:none;"></div>
-</form>
-</section>
 
 <script>
 (function(){
-try{
-const cart=JSON.parse(localStorage.getItem('cart')||'[]');
-const amount=cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
-document.getElementById('amountValue').textContent=amount.toFixed(2);
-document.getElementById('itemCount').textContent=cart.length;
-document.getElementById('orderAmount').value=amount.toFixed(2);
-document.getElementById('orderItemsJson').value=JSON.stringify(cart);
-document.getElementById('orderId').value='GAMO-'+Date.now();
-const qr=document.getElementById('upiQR');
-const link=document.getElementById('upiLink');
-const base=`upi://pay?pa=your-upi-id@bank&pn=Gamored&cu=INR&am=${amount.toFixed(2)}`;
-qr.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(base)}`;
-link.href=base;
-}catch(e){}
+  try{
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const amount = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+    document.getElementById('amountValue').textContent = amount.toFixed(2);
+    document.getElementById('amountValue2').textContent = amount.toFixed(2);
+    document.getElementById('itemCount').textContent = cart.length;
+    document.getElementById('orderAmount').value = amount.toFixed(2);
+    document.getElementById('orderItemsJson').value = JSON.stringify(cart);
+    document.getElementById('orderId').value = 'GAMO-' + Date.now();
+
+    const base = `upi://pay?pa=7042630996@fam&pn=Gamored&cu=INR&am=${amount.toFixed(2)}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(base)}`;
+    const qrEl = document.getElementById('upiQR');
+    const linkEl = document.getElementById('upiLink');
+    qrEl.src = qrUrl;
+    linkEl.href = base;
+  }catch(e){}
 })();
 
-const shotInput=document.getElementById('screenshot');
-const shotPreview=document.getElementById('shotPreview');
-shotInput.addEventListener('change',()=>{
-shotPreview.innerHTML='';
-const file=shotInput.files&&shotInput.files[0];
-if(!file)return;
-if(file.size>10*1024*1024){alert('File too large');shotInput.value='';return;}
-const img=document.createElement('img');
-img.style.maxWidth='220px';img.style.borderRadius='8px';img.src=URL.createObjectURL(file);
-shotPreview.appendChild(img);
+const copyBtn = document.getElementById('copyUpiBtn');
+copyBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  navigator.clipboard.writeText('7042630996@fam').then(()=>{
+    copyBtn.textContent = 'Copied';
+    setTimeout(()=>copyBtn.textContent='Copy UPI ID',1200);
+  });
 });
 
-const GAS_URL='https://script.google.com/macros/s/AKfycbyAwTcswLDetzoUUIyUvhoxpX2uIjrWADaJYaJJlExR16MgC7YbrXyOqhti3zbp-yOexQ/exec';
-document.getElementById('upiCheckoutForm').addEventListener('submit',async e=>{
-e.preventDefault();
-const btn=document.getElementById('sendBtn');
-const msg=document.getElementById('formMsg');
-btn.disabled=true;btn.textContent='Sending...';msg.style.display='none';
-try{
-const formData=new FormData(e.target);
-const res=await fetch(GAS_URL,{method:'POST',body:formData});
-if(!res.ok)throw new Error(`HTTP ${res.status}`);
-const data=await res.json();
-msg.textContent=data.message||'Submitted!';
-msg.style.display='block';
-msg.style.background='#e7f6e7';
-msg.style.border='1px solid #b6e2b6';
-}catch(err){
-msg.textContent='Could not send. Try again.';
-msg.style.display='block';
-msg.style.background='#fdeaea';
-msg.style.border='1px solid #f1b1b1';
-}finally{
-btn.disabled=false;btn.textContent='Send';
-}});
+const shotInput = document.getElementById('screenshot');
+const shotPreview = document.getElementById('shotPreview');
+shotInput.addEventListener('change',()=>{
+  shotPreview.innerHTML='';
+  const file=shotInput.files&&shotInput.files[0];
+  if(!file) return;
+  if(file.size>10*1024*1024){ alert('Image too large (max 10MB).'); shotInput.value=''; return; }
+  const img=document.createElement('img');
+  img.src=URL.createObjectURL(file);
+  shotPreview.appendChild(img);
+});
+
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx7vB0bzn9VkC5ldGaBPbk5hN6k_Fi2W-KWT5vKy28U2S3ib6XbG-dOLJz_IahpfZwQgw/exec';
+document.getElementById('upiCheckoutForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const msg = document.getElementById('formMsg');
+  const submitBtn = e.target.querySelector('input[type="submit"]');
+  submitBtn.disabled = true;
+  try{
+    const formData = new FormData(e.target);
+    const res = await fetch(GAS_URL,{ method:'POST', body: formData });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    msg.textContent = data.message || 'Submitted!';
+    msg.classList.add('show');
+    setTimeout(()=>msg.classList.remove('show'), 2500);
+  }catch(err){
+    msg.textContent = 'Could not send. Please try again.';
+    msg.classList.add('show');
+    setTimeout(()=>msg.classList.remove('show'), 2500);
+  }finally{
+    submitBtn.disabled = false;
+  }
+});
 </script>
 </body>
 </html>
