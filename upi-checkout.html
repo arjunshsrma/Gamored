@@ -91,57 +91,84 @@ form input,form select{width:100%;padding:10px;border:1px solid var(--border);bo
 
 <script>
 (function(){
-try{
-const cart=JSON.parse(localStorage.getItem('cart')||'[]');
-const amount=cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
-document.getElementById('amountValue').textContent=amount.toFixed(2);
-document.getElementById('itemCount').textContent=cart.length;
-document.getElementById('orderAmount').value=amount.toFixed(2);
-document.getElementById('orderItemsJson').value=JSON.stringify(cart);
-document.getElementById('orderId').value='GAMO-'+Date.now();
-const qr=document.getElementById('upiQR');
-const link=document.getElementById('upiLink');
-const base=`upi://pay?pa=7042630996@fam&pn=Gamored&cu=INR&am=${amount.toFixed(2)}`;
-qr.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(base)}`;
-link.href=base;
-}catch(e){}
+  try{
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const amount = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+    document.getElementById('amountValue').textContent=amount.toFixed(2);
+    document.getElementById('itemCount').textContent=cart.length;
+    document.getElementById('orderAmount').value=amount.toFixed(2);
+    document.getElementById('orderItemsJson').value=JSON.stringify(cart);
+    document.getElementById('orderId').value='GAMO-'+Date.now();
+    const base=`upi://pay?pa=7042630996@fam&pn=Gamored&cu=INR&am=${amount.toFixed(2)}`;
+    const qr=document.getElementById('upiQR');
+    const link=document.getElementById('upiLink');
+    qr.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(base)}`;
+    link.href=base;
+  }catch(e){}
 })();
 
 const shotInput=document.getElementById('screenshot');
 const shotPreview=document.getElementById('shotPreview');
 shotInput.addEventListener('change',()=>{
-shotPreview.innerHTML='';
-const file=shotInput.files&&shotInput.files[0];
-if(!file)return;
-if(file.size>10*1024*1024){alert('File too large');shotInput.value='';return;}
-const img=document.createElement('img');
-img.style.maxWidth='220px';img.style.borderRadius='8px';img.src=URL.createObjectURL(file);
-shotPreview.appendChild(img);
+  shotPreview.innerHTML='';
+  const file=shotInput.files&&shotInput.files[0];
+  if(!file)return;
+  if(file.size>10*1024*1024){alert('File too large');shotInput.value='';return;}
+  const img=document.createElement('img');
+  img.style.maxWidth='220px';img.style.borderRadius='8px';img.src=URL.createObjectURL(file);
+  shotPreview.appendChild(img);
 });
 
-const GAS_URL='https://script.google.com/macros/s/AKfycbx7vB0bzn9VkC5ldGaBPbk5hN6k_Fi2W-KWT5vKy28U2S3ib6XbG-dOLJz_IahpfZwQgw/exec';
+const fileToBase64 = (file) =>
+  new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(String(r.result).split(',')[1]); // strip data:...;base64,
+    r.onerror=reject;
+    r.readAsDataURL(file);
+  });
+
+const GAS_URL='https://script.google.com/macros/s/AKfycbwaSYsWsPfvIFKqj2RPe1nsdrl6v9-DnmQLbiclhvu6h53HGgbyh6UsIGNGPWuayosbrg/exec';
 document.getElementById('upiCheckoutForm').addEventListener('submit',async e=>{
-e.preventDefault();
-const btn=document.getElementById('sendBtn');
-const msg=document.getElementById('formMsg');
-btn.disabled=true;btn.textContent='Sending...';msg.style.display='none';
-try{
-const formData=new FormData(e.target);
-const res=await fetch(GAS_URL,{method:'POST',body:formData});
-if(!res.ok)throw new Error(`HTTP ${res.status}`);
-const data=await res.json();
-msg.textContent=data.message||'Submitted!';
-msg.style.display='block';
-msg.style.background='#e7f6e7';
-msg.style.border='1px solid #b6e2b6';
-}catch(err){
-msg.textContent='Could not send. Try again.';
-msg.style.display='block';
-msg.style.background='#fdeaea';
-msg.style.border='1px solid #f1b1b1';
-}finally{
-btn.disabled=false;btn.textContent='Send';
-}});
+  e.preventDefault();
+  const btn=document.getElementById('sendBtn');
+  const msg=document.getElementById('formMsg');
+  btn.disabled=true;btn.textContent='Sending...';msg.style.display='none';
+
+  try{
+    const form = new FormData(e.target);
+    const file = shotInput.files && shotInput.files[0];
+    if(!file) throw new Error('Please attach a screenshot.');
+
+    const b64 = await fileToBase64(file);
+
+    const payload = {};
+    form.forEach((v,k)=>payload[k]=v);
+    payload.screenshot_b64 = b64;
+    payload.screenshot_name = file.name || 'payment.png';
+    payload.screenshot_type = file.type || 'image/png';
+
+    const res = await fetch(GAS_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    msg.textContent=data.message || 'Submitted!';
+    msg.style.display='block';
+    msg.style.background='#e7f6e7';
+    msg.style.border='1px solid #b6e2b6';
+  }catch(err){
+    msg.textContent='Could not send. Try again.';
+    msg.style.display='block';
+    msg.style.background='#fdeaea';
+    msg.style.border='1px solid #f1b1b1';
+  }finally{
+    btn.disabled=false;btn.textContent='Send';
+  }
+});
 </script>
+
 </body>
 </html>
