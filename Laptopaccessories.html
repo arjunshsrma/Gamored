@@ -1,75 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamored</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gamored — Products</title>
+  <link rel="stylesheet" href="stylesheet.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="Po">
-        <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
-    <a href="index.html">
-        <button>Home</button>
-    </a>
-        <br>
-        <div class="dropdown"> 
-            <button class="dropbtn" class="button active">Products</button>
-            <div class="dropdown-content">
-              <a href="Laptopaccessories.html">Laptop Accessories</a>
-              <a href="Connectors.html">Connectors</a>
-            </div>
-          </div>
-        <br>
-    <a href="Contactus.html">
-        <button>Contact us</button>
-    </a>
-    <a href="Aboutus.html">
-        <button>About us</button>
-    </a>
-    <a href="cart.html"><button>🛒 Cart</button></a>
+
+  <!-- Top Bar / Nav -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150" alt="Gamored Logo"/>
+
+    <a href="index.html"><button>Home</button></a>
+
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
     </div>
 
+    <a href="Contactus.html"><button>Contact us</button></a>
+    <a href="Aboutus.html"><button>About us</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
+  </div>
+
+  <!-- Optional Hero Banner -->
+  <section class="hero-banner">
+    <h1>Everything you need for your gaming ventures</h1>
+    <p>Adapters, stands, and more — curated for performance.</p>
+    <a href="#products"><button class="cta-button">Explore Products</button></a>
+  </section>
+
+  <!-- Products Grid -->
+  <main id="products" class="products-container">
+    <!-- Product 1 -->
     <div class="product-card">
-        <img src="Laptopstand.png" alt="Laptop Stand">
-        <h3>Laptop Stand</h3>
-        <p class="price">₹799</p>
-        <p class="description">Ergonomic aluminum stand compatible with all laptop sizes.</p>
-        <div class="button-group">
+      <img src="Laptopstand.png" alt="Adjustable Aluminum Laptop Stand"/>
+      <h3>Laptop Stand</h3>
+      <p class="price">₹799</p>
+      <p class="description">Ergonomic aluminum stand compatible with all laptop sizes.</p>
+      <div class="button-group">
         <button onclick="addToCart('Laptop Stand', 799)">Add to Cart</button>
         <a href="laptopstand.html"><button>View</button></a>
-        </div>
       </div>
-      <div class="product-card">
-        <img src="front_riot.png" alt="Logitech G502 Hero Mouse">
-        <h3>Logitech G502 HERO</h3>
-        <p class="price">₹4,499</p>
-        <p class="description">High-performance wired gaming mouse with 25K DPI sensor, 11 customizable buttons, and adjustable weights.</p>
-        <div class="button-group">
-            <button onclick="addToCart('Logitech G502 HERO', 4499)">Add to Cart</button>
-            <a href="g502.html"><button>View</button></a>
-          </div>          
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <img src="front_riot.png" alt="Logitech G502 HERO Gaming Mouse"/>
+      <h3>Logitech G502 HERO</h3>
+      <p class="price">₹4,499</p>
+      <p class="description">25K DPI sensor, 11 customizable buttons, adjustable weights.</p>
+      <div class="button-group">
+        <button onclick="addToCart('Logitech G502 HERO', 4499)">Add to Cart</button>
+        <a href="g502.html"><button>View</button></a>
       </div>
-      <div class="product-card">
-  <img src="G213 prodigykeyboard.jpg" alt="Logitech G213 Prodigy RGB Gaming Keyboard">
-  <h3>Logitech G213 Prodigy RGB Gaming Keyboard</h3>
-  <p class="price">₹3,499</p>
-  <p class="description">Spill-resistant gaming keyboard with LIGHTSYNC RGB and dedicated media controls.</p>
-  <div class="button-group">
-    <button onclick="addToCart('Logitech G213 Prodigy RGB Gaming Keyboard', 3499)">Add to Cart</button>
-    <a href="logitech-g213.html"><button>View</button></a>
-  </div>
-</div>
-</div>
-</div>
-  <div class="product-card">
-  <img src="gaming mouse pad big.jpg" alt="AD-MP-236 AD-06 Gaming Mouse Pad">
-  <h3>AD-MP-236 AD-06 Gaming Mouse Pad</h3>
-  <p class="price">₹500</p>
-  <p class="description">Large silk-gliding mouse pad (600×300×2 mm) for smooth gaming and precision control.</p>
-  <div class="button-group">
-    <button onclick="addToCart('AD-MP-236 AD-06 Gaming Mouse Pad', 500)">Add to Cart</button>
-    <a href="ad-mp-236.html"><button>View</button></a>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+      <img src="G213 prodigykeyboard.jpg" alt="Logitech G213 Prodigy RGB Gaming Keyboard"/>
+      <h3>Logitech G213 Prodigy RGB Gaming Keyboard</h3>
+      <p class="price">₹3,499</p>
+      <p class="description">Spill-resistant with LIGHTSYNC RGB and dedicated media controls.</p>
+      <div class="button-group">
+        <button onclick="addToCart('Logitech G213 Prodigy RGB Gaming Keyboard', 3499)">Add to Cart</button>
+        <a href="logitech-g213.html"><button>View</button></a>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card">
+      <img src="gaming mouse pad big.jpg" alt="AD-MP-236 AD-06 Gaming Mouse Pad"/>
+      <h3>AD-MP-236 AD-06 Gaming Mouse Pad</h3>
+      <p class="price">₹500</p>
+      <p class="description">Large silk-glide pad (600×300×2 mm) for smooth precision control.</p>
+      <div class="button-group">
+        <button onclick="addToCart('AD-MP-236 AD-06 Gaming Mouse Pad', 500)">Add to Cart</button>
+        <a href="ad-mp-236.html"><button>View</button></a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification (used by script.js) -->
+  <div id="toast" class="toast">Added to cart!</div>
+
+  <!-- (Optional) Footer -->
+  <footer class="featured-section">
+    <h2>Trusted accessories for every gamer</h2>
+    <p>Only at <strong>arjunshsrma.github.io/Gamored</strong></p>
+  </footer>
+
 </body>
 </html>
