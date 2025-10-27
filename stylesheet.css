@@ -6,8 +6,9 @@
   font-size: 45px;
   text-align: center;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .active {
@@ -16,24 +17,25 @@
 
 body {
   background-image: linear-gradient(rgb(0, 0, 0), rgb(49, 210, 60));
-  height: 100%;
   margin: 0;
-}
-
-button:hover {
-  background-color: rgba(101, 219, 95, 0.52);
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 button {
   width: 200px;
   height: 50px;
   background-color: rgb(145, 210, 49);
-  font-size: 30px;
+  font-size: 22px;
   text-align: center;
   border-radius: 5px;
-  margin: 20px;
-  border-width: 5px;
+  margin: 15px;
+  border: 3px solid rgb(49, 210, 60);
   cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(101, 219, 95, 0.52);
 }
 
 /* ---------- DROPDOWN MENU ---------- */
@@ -66,7 +68,7 @@ p {
   color: #0f7f14;
 }
 
-h1 {
+h1, h2, h3 {
   color: rgb(0, 148, 27);
 }
 
@@ -79,12 +81,9 @@ h1 {
   border: 2px solid rgb(145, 210, 49);
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-family: Arial, sans-serif;
-  justify-content: center;
 }
 
 .form-section h2 {
-  color: rgb(0, 148, 27);
   font-size: 36px;
   text-align: center;
   margin-bottom: 25px;
@@ -92,8 +91,7 @@ h1 {
 
 .form-section label {
   display: block;
-  font-size: 20px;
-  color: rgb(0, 148, 27);
+  font-size: 18px;
   margin-bottom: 8px;
 }
 
@@ -104,24 +102,17 @@ h1 {
   border: 2px solid rgb(101, 219, 95);
   border-radius: 6px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 16px;
   background-color: #fff;
   color: #000;
-}
-
-.form-section textarea {
-  resize: vertical;
-  min-height: 100px;
 }
 
 .form-section input[type="submit"] {
   background-color: rgb(101, 219, 95);
   color: black;
-  font-size: 22px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 2px solid rgb(49, 210, 60);
 }
 
 .form-section input[type="submit"]:hover {
@@ -130,19 +121,19 @@ h1 {
 
 #response-message {
   color: #ffffff;
-  font-size: 40px;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
   margin-top: 15px;
   font-style: italic;
 }
 
-/* ---------- PRODUCT CARDS ---------- */
+/* ---------- PRODUCT GRID ---------- */
 .products-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 25px;
+  gap: 30px;
   padding: 40px;
 }
 
@@ -151,14 +142,10 @@ h1 {
   border: 2px solid rgb(101, 219, 95);
   border-radius: 12px;
   width: 300px;
-  margin: 20px;
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
-  font-family: Arial, sans-serif;
   transition: transform 0.2s ease;
-  display: inline-block;
-  vertical-align: top;
 }
 
 .product-card:hover {
@@ -173,12 +160,6 @@ h1 {
   padding: 10px;
 }
 
-.product-card h3 {
-  font-size: 22px;
-  color: rgb(0, 148, 27);
-  margin: 10px 0;
-}
-
 .product-card .price {
   color: rgb(27, 189, 51);
   font-size: 20px;
@@ -189,6 +170,14 @@ h1 {
   font-size: 16px;
   color: #0f7f14;
   margin: 10px 0 15px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .product-card button {
@@ -203,14 +192,6 @@ h1 {
 
 .product-card button:hover {
   background-color: rgba(101, 219, 95, 0.7);
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
 }
 
 /* ---------- PRODUCT VIEW PAGE ---------- */
@@ -234,75 +215,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-.product-view h1 {
-  font-size: 28px;
-  color: #24e746;
-}
-
-.product-view .price {
-  font-size: 24px;
-  color: #5dff7e;
-  margin: 10px 0;
-}
-
-.product-view .description {
-  color: #bfffc4;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.product-view button {
-  background-color: #80e95a;
-  color: black;
-  padding: 12px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.product-view button:hover {
-  background-color: #65d457;
-}
-
-/* ---------- IMAGE GALLERY ---------- */
-.image-gallery {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.main-product-image {
-  width: 100%;
-  max-height: 300px;
-  object-fit: contain;
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.thumbnail-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.thumbnail-row img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  border: 2px solid #4eff76;
-  border-radius: 6px;
-  background-color: white;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.thumbnail-row img:hover {
-  transform: scale(1.1);
-}
-
 /* ---------- HERO BANNER ---------- */
 .hero-banner {
   width: 100%;
@@ -316,7 +228,6 @@ h1 {
   align-items: center;
   text-align: center;
   color: white;
-  font-family: Arial, sans-serif;
   padding: 20px;
 }
 
@@ -349,25 +260,6 @@ h1 {
   background-color: rgba(101, 219, 95, 0.7);
 }
 
-/* ---------- FEATURED SECTION ---------- */
-.featured-section {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.featured-section h2 {
-  font-size: 32px;
-  color: #24e746;
-  margin-bottom: 20px;
-}
-
-.center-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
 /* ---------- TOAST NOTIFICATION ---------- */
 .toast {
   position: fixed;
@@ -391,11 +283,8 @@ h1 {
   opacity: 1;
 }
 
-/* ---------- RESPONSIVENESS ---------- */
+/* ---------- RESPONSIVE DESIGN ---------- */
 @media (max-width: 1024px) {
-  .products-container {
-    gap: 15px;
-  }
   .product-card {
     width: 45%;
   }
@@ -405,8 +294,13 @@ h1 {
   .product-card {
     width: 90%;
   }
+  .Po {
+    height: auto;
+    flex-direction: column;
+  }
   button {
     width: 150px;
-    font-size: 22px;
+    font-size: 20px;
+    margin: 10px;
   }
 }
