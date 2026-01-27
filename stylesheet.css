@@ -684,3 +684,45 @@ p {
 .toast {
   background-color: #0072ff;
 }
+/* ===== FORCE GREEN → NEON BLUE (TEXT + OUTLINES) ===== */
+
+/* Headings & text */
+h1, h2, h3 {
+  color: #9fdcff !important;
+}
+
+p {
+  color: #cfe7ff !important;
+}
+
+/* Prices */
+.price {
+  color: #3ddcff !important;
+}
+
+/* Borders / outlines */
+button,
+.product-card,
+.thumbnail-row img,
+.form-section,
+.product-view,
+.hero-image-box {
+  border-color: #1e90ff !important;
+}
+
+/* Button text */
+button,
+.cta-button {
+  color: #00121f !important;
+}
+
+/* Dropdown text */
+.dropdown-content a {
+  color: #cfe7ff !important;
+}
+
+/* Hover outlines */
+button:hover,
+.thumbnail-row img:hover {
+  border-color: #4fdcff !important;
+}
