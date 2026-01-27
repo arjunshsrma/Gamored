@@ -3,51 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Logitech G502 HERO - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
-  <script src="script.js"></script>
 </head>
 <body>
-  <!-- Navbar (copy-pasted from your site) -->
+
+  <!-- NAVBAR -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
-    <a href="index.html"><button>Home</button></a><br>
+    <a href="index.html"><button>Home</button></a>
+
     <div class="dropdown">
       <button class="dropbtn">Products</button>
       <div class="dropdown-content">
         <a href="Laptopaccessories.html">Laptop Accessories</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-      </div>
-    </div><br>
-    <a href="Contactus.html"><button>Contact us</button></a>
-    <a href="Aboutus.html"><button>About us</button></a>
-    <a href="cart.html"><button class="button active">🛒 Cart</button></a>
-  </div>
-
-  <!-- Product View -->
-  <div class="product-view">
-    <div class="image-gallery">
-      <img id="mainImage" src="front_riot.png" alt="Logitech G502 HERO" class="main-product-image">
-  
-      <div class="thumbnail-row">
-        <img src="front_riot.png" alt="Thumb 1" onclick="switchImage(this)">
-        <img src="side_lol.png" alt="Thumb 2" onclick="switchImage(this)">
-        <img src="front black.png" alt="Thumb 3" onclick="switchImage(this)">
       </div>
     </div>
-  
-    <h1>Logitech G502 HERO</h1>
-    <p class="price">₹4,499</p>
-    <p class="description">High-performance wired gaming mouse with 25K DPI sensor, 11 customizable buttons, and adjustable weights.</p>
-    <button onclick="addToCart('Logitech G502 HERO', 4499)">Add to Cart</button>
+
+    <a href="Contactus.html"><button>Contact us</button></a>
+    <a href="Aboutus.html"><button>About us</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
   </div>
-  
-</body>
-</html>
-<script>
-    function switchImage(element) {
-      const mainImage = document.getElementById("mainImage");
-      mainImage.src = element.src;
+
+  <!-- PRODUCT PAGE -->
+  <div class="product-page">
+
+    <!-- IMAGE GALLERY -->
+    <div class="product-gallery">
+      <img id="mainProductImage" src="front_riot.png" class="main-image" alt="Logitech G502 HERO">
+
+      <div class="thumbnail-row">
+        <img src="front_riot.png" onclick="changeImage(this)">
+        <img src="side_lol.png" onclick="changeImage(this)">
+        <img src="front black.png" onclick="changeImage(this)">
+      </div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="product-info">
+      <h1>Logitech G502 HERO</h1>
+      <p class="price">₹4,499</p>
+      <p class="description">
+        High-performance wired gaming mouse with 25K DPI sensor,
+        11 programmable buttons, and adjustable weights.
+      </p>
+
+      <button onclick="addToCart('Logitech G502 HERO', 4499)">
+        Add to Cart
+      </button>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    function changeImage(element) {
+      document.getElementById("mainProductImage").src = element.src;
     }
   </script>
-  
+
+  <script src="script.js"></script>
+</body>
+</html>
