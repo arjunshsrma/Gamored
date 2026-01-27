@@ -86,14 +86,7 @@ button:hover {
   display: block;
 }
 
-/* ---------- TEXT STYLES ---------- */
-p {
-  color: #0f7f14;
-}
 
-h1, h2, h3 {
-  color: rgb(0, 148, 27);
-}
 
 /* ---------- FORM SECTION ---------- */
 .form-section {
@@ -326,4 +319,63 @@ h1, h2, h3 {
     font-size: 20px;
     margin: 10px;
   }
+}
+/* ===== FINAL TEXT + FONT READABILITY FIX ===== */
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Base text */
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  color: #e6e6e6;
+  line-height: 1.6;
+}
+
+/* Paragraphs */
+p {
+  color: #d6eadd;
+  font-size: 16px;
+}
+
+/* Headings */
+h1 {
+  color: #c9f7d8;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+h2 {
+  color: #b9f3cc;
+  font-size: 34px;
+  font-weight: 600;
+}
+
+h3 {
+  color: #e9fff0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Product card text */
+.product-card .description {
+  color: #cfe8d7;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.product-card .price {
+  color: #5dff9a;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+/* Buttons text */
+button,
+.cta-button {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #062f14;
 }
