@@ -1,4 +1,13 @@
 /* ---------- HEADER / NAVBAR ---------- */
+.featured-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featured-section > .product-card {
+  display: inline-block;
+}
 * {
   box-sizing: border-box;
 }
