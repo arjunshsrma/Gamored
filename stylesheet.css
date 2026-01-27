@@ -726,3 +726,45 @@ button:hover,
 .thumbnail-row img:hover {
   border-color: #4fdcff !important;
 }
+/* ===== CONTACT US → NEON BLUE THEME ===== */
+
+/* Contact form container */
+.form-section {
+  border-color: #1e90ff !important;
+  background-color: rgba(10, 30, 60, 0.35) !important;
+}
+
+/* Contact form heading */
+.form-section h2 {
+  color: #9fdcff !important;
+}
+
+/* Labels */
+.form-section label {
+  color: #cfe7ff !important;
+}
+
+/* Inputs & textarea */
+.form-section input,
+.form-section textarea {
+  border-color: #1e90ff !important;
+  background-color: #0b1c2d !important;
+  color: #e8f2ff !important;
+}
+
+/* Submit button */
+.form-section input[type="submit"] {
+  background: linear-gradient(135deg, #00c6ff, #0072ff) !important;
+  color: #00121f !important;
+  border: none !important;
+}
+
+/* Submit hover */
+.form-section input[type="submit"]:hover {
+  background: linear-gradient(135deg, #4fdcff, #1e90ff) !important;
+}
+
+/* Response / confirmation text */
+#response-message {
+  color: #9fdcff !important;
+}
