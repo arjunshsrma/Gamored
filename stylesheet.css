@@ -601,3 +601,86 @@ button,
   }
 }
 
+/* ===== NEON BLUE + BLACK THEME OVERRIDE ===== */
+
+/* Base background */
+body {
+  background: linear-gradient(#05070c, #081a2e);
+  color: #e8f2ff;
+}
+
+/* Navbar */
+.Po {
+  background-color: #0b1c2d;
+}
+
+/* Buttons (global) */
+button,
+.cta-button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #00121f;
+  border: none;
+  font-weight: 600;
+}
+
+button:hover,
+.cta-button:hover {
+  background: linear-gradient(135deg, #4fdcff, #1e90ff);
+}
+
+/* Headings */
+h1 {
+  color: #9fdcff;
+}
+
+h2 {
+  color: #7fcbff;
+}
+
+h3 {
+  color: #e8f6ff;
+}
+
+/* Paragraph text */
+p {
+  color: #cfe7ff;
+}
+
+/* Prices */
+.price {
+  color: #3ddcff;
+}
+
+/* Product cards */
+.product-card {
+  background-color: rgba(5, 20, 40, 0.9);
+  box-shadow: 0 15px 40px rgba(0, 120, 255, 0.25);
+}
+
+/* Product images */
+.product-card img {
+  background-color: #ffffff;
+}
+
+/* Thumbnails (product page) */
+.thumbnail-row img:hover {
+  border: 2px solid #3ddcff;
+}
+
+/* Dropdown menu */
+.dropdown-content {
+  background-color: #0b1c2d;
+}
+
+.dropdown-content a {
+  color: #cfe7ff;
+}
+
+.dropdown-content a:hover {
+  background-color: #102a44;
+}
+
+/* Toast notification */
+.toast {
+  background-color: #0072ff;
+}
