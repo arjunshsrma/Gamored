@@ -446,3 +446,22 @@ button,
   }
 }
 
+/* ===== PRODUCT IMAGE ALIGNMENT FIX ===== */
+
+/* Make product card a controlled vertical layout */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Image container alignment */
+.product-card img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+
+  display: block;
+  margin: 20px auto 10px auto;
+}
