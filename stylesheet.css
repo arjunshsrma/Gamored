@@ -899,6 +899,7 @@ button:hover,
 }
 
 
-.gamored-banner h1 {
-  text-align: center;
+.gamored-banner {
+  justify-content: center;
 }
+
