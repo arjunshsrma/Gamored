@@ -851,15 +851,30 @@ button:hover,
   position: relative;
   width: 100%;
   height: 160px;
+
   display: flex;
   align-items: center;
-  padding-left: 60px;
+  justify-content: center;
+
   background:
-    radial-gradient(circle at 15% 50%, rgba(0, 170, 255, 0.18), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.18), transparent 45%),
     linear-gradient(135deg, #020617, #020b2e, #020617);
+
   overflow: hidden;
   border-bottom: 1px solid rgba(0, 170, 255, 0.25);
 }
+
+.gamored-banner h1 {
+  position: relative;
+  z-index: 1;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  text-align: center;
+}
+
 
 /* subtle moving light */
 .gamored-banner::after {
@@ -885,21 +900,4 @@ button:hover,
 }
 
 /* BRAND TEXT */
-.gamored-banner h1 {
-  position: relative;
-  z-index: 1;
-  font-size: 56px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #7dd3fc;
-  text-shadow:
-    0 0 12px rgba(0, 170, 255, 0.6),
-    0 0 36px rgba(0, 170, 255, 0.35);
-}
-
-
-.gamored-banner {
-  justify-content: center;
-}
 
