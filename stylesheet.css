@@ -892,3 +892,22 @@ button:hover,
     transform: translateX(100%);
   }
 }
+
+/* Dropdown menu */
+.dropdown-content {
+  position: absolute;
+  z-index: 2000;
+}
+
+/* Navbar */
+nav {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Banner */
+.gamored-banner {
+  position: relative;
+  z-index: 1;
+}
+
