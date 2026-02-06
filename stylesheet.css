@@ -1,6 +1,7 @@
  /* ---------- HEADER / NAVBAR ---------- */
 /* ===== GOOGLE FONT IMPORT ===== */
-@import url('https://fonts.google.com/share?selection.family=Bungee+Shade');
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 
 html, body {
   font-family: 'Poppins', sans-serif;
