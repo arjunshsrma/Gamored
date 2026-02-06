@@ -3,11 +3,24 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 
-html, body {
-  font-family: 'Poppins', sans-serif;
+html {
+  font-family: 'Bungee Shade', cursive;
 }
 
+body {
+  font-family: inherit;
+}
+
+/* Force everything to inherit */
 *, *::before, *::after {
+  font-family: inherit;
+}
+
+/* Fix form controls */
+button,
+input,
+textarea,
+select {
   font-family: inherit;
 }
 
@@ -868,7 +881,7 @@ button:hover,
 .gamored-banner h1 {
   position: relative;
   z-index: 1;
-  font-size: 56px;
+  font-size: 70px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
