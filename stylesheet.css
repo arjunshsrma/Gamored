@@ -846,4 +846,21 @@ button:hover,
   background: linear-gradient(135deg, #4fdcff, #1e90ff);
 }
 
+/* ===== GAMORED BANNER ===== */
+.gamored-banner {
+  width: 100%;
+  background: linear-gradient(90deg, #0a0f1f, #0f1e3d);
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+}
+
+.gamored-banner h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00aaff;
+  text-transform: uppercase;
+}
 
