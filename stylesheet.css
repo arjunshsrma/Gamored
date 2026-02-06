@@ -1,24 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 
-html {
+h1 {
   font-family: 'Bungee Shade', cursive;
-}
-
-body {
-  font-family: inherit;
-}
-
-/* Force everything to inherit */
-*, *::before, *::after {
-  font-family: inherit;
-}
-
-/* Fix form controls */
-button,
-input,
-textarea,
-select {
-  font-family: inherit;
 }
 
 
