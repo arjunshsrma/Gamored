@@ -776,8 +776,6 @@ button:hover,
 }
 /* ===== CART PAGE – BLUE THEME + LAYOUT FIX ===== */
 
-/* Cart container (if cart uses main wrapper) */
-.cart-container,
 .cart-items,
 .cart {
   max-width: 900px;
@@ -911,3 +909,19 @@ nav {
   z-index: 1;
 }
 
+.cart-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px;
+  background: rgba(10, 20, 40, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 170, 255, 0.15);
+  color: #e6f4ff;
+}
+
+.cart-container h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #7dd3fc;
+  text-transform: lowercase;
+}
