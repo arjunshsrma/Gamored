@@ -840,37 +840,27 @@ button:hover,
   background: linear-gradient(135deg, #4fdcff, #1e90ff);
 }
 
-/* ===== GAMORED BRAND BANNER ===== */
 .gamored-banner {
   position: relative;
+  z-index: 1;
   width: 100%;
   height: 160px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background:
     radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.18), transparent 45%),
     linear-gradient(135deg, #020617, #020b2e, #020617);
-
   overflow: hidden;
-  border-bottom: 1px solid rgba(0, 170, 255, 0.25);
 }
 
 .gamored-banner h1 {
-  position: relative;
-  z-index: 1;
-  font-size: 130px;
-  font-weight: 700;
+  font-size: 120px;
   letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #7dd3fc;
   text-align: center;
 }
 
-
-/* subtle moving light */
+/* Glow animation */
 .gamored-banner::after {
   content: "";
   position: absolute;
@@ -882,15 +872,12 @@ button:hover,
     transparent 55%
   );
   animation: gamoredGlow 7s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes gamoredGlow {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
 }
 
 /* Dropdown menu */
