@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=UnifrakturCook:wght@700&display=swap');
 
 h1 {
   font-family: 'Bungee Shade', cursive;
@@ -861,7 +861,7 @@ button:hover,
 .gamored-banner h1 {
   position: relative;
   z-index: 1;
-  font-size: 70px;
+  font-size: 100px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -892,6 +892,3 @@ button:hover,
     transform: translateX(100%);
   }
 }
-
-/* BRAND TEXT */
-
