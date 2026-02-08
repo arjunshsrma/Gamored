@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gaming Mouse Pad - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+
+    <a href="index.html"><button>Home</button></a>
+
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div>
+
+    <a href="Contactus.html"><button>Contact Us</button></a>
+    <a href="Aboutus.html"><button>About Us</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
+  </div>
+
+  <!-- PRODUCT PAGE -->
+  <div class="product-page">
+
+    <!-- IMAGE GALLERY -->
+    <div class="product-gallery">
+      <img id="mainProductImage" src="mousepad_1.png" class="main-image" alt="Gaming Mouse Pad">
+
+      <div class="thumbnail-row">
+        <img src="mousepad_1.png" onclick="changeImage(this)">
+        <img src="mousepad_2.png" onclick="changeImage(this)">
+        <img src="mousepad_3.png" onclick="changeImage(this)">
+      </div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="product-info">
+      <h1>Gaming Mouse Pad</h1>
+
+      <p class="price">₹500</p>
+
+      <p class="description">
+        A smooth, high-quality gaming mouse pad designed for precise tracking
+        and consistent control. Ideal for both low and high DPI gaming styles,
+        ensuring accuracy during intense gameplay sessions.
+      </p>
+
+      <ul style="text-align:left; margin-bottom:25px;">
+        <li>Optimized surface for accurate mouse tracking</li>
+        <li>Non-slip rubber base for stability</li>
+        <li>Durable stitched edges for long-lasting use</li>
+        <li>Compatible with optical and laser sensors</li>
+      </ul>
+
+      <button onclick="addToCart('Gaming Mouse Pad', 500)">
+        Add to Cart
+      </button>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    function changeImage(element) {
+      document.getElementById("mainProductImage").src = element.src;
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
