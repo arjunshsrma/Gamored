@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Laptop Stand - Gamored</title>
+  <meta charset="UTF-8">
+  <title>Adjustable Aluminum Laptop Stand - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
-  <script src="script.js"></script>
 </head>
-<body>
-  <!-- Navbar -->
+<body> 
+
+  <!-- NAVBAR -->
   <div class="Po">
     <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
-    <a href="index.html"><button>Home</button></a><br>
+    <a href="index.html"><button>Home</button></a>
+
     <div class="dropdown">
       <button class="dropbtn">Products</button>
       <div class="dropdown-content">
         <a href="Laptopaccessories.html">Laptop Accessories</a>
         <a href="Connectors.html">Connectors</a>
       </div>
-    </div><br>
+    </div>
+
     <a href="Contactus.html"><button>Contact us</button></a>
     <a href="Aboutus.html"><button>About us</button></a>
-    <a href="cart.html"><button class="button active">🛒 Cart</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
   </div>
 
-  <!-- Product View -->
-  <div class="product-view">
-    <div class="image-gallery">
-      <img id="mainImage" src="laptop-front.png" alt="Laptop Stand" class="main-product-image">
+  <!-- PRODUCT PAGE -->
+  <div class="product-page">
+
+    <!-- IMAGE GALLERY -->
+    <div class="product-gallery">
+      <img id="mainProductImage" src="laptopstand1.png" class="main-image" alt="Adjustable Aluminum Laptop Stand">
 
       <div class="thumbnail-row">
-        <img src="laptop-front.png" alt="Front View" onclick="switchImage(this)">
-        <img src="laptop-side.png" alt="Side View" onclick="switchImage(this)">
-        <img src="laptop-folded.png" alt="Folded View" onclick="switchImage(this)">
+        <img src="laptopstand1.png" onclick="changeImage(this)">
+        <img src="laptopstand2.png" onclick="changeImage(this)">
+        <img src="laptopstand3.png" onclick="changeImage(this)">
       </div>
     </div>
 
-    <h1>Adjustable Aluminum Laptop Stand</h1>
-    <p class="price">₹1,299</p>
-    <p class="description">
-      A lightweight, foldable, and durable laptop stand made from premium aluminum. Improves posture and airflow while you work or game.
-    </p>
-    <ul>
-      <li>Adjustable height and angle</li>
-      <li>Anti-slip silicone pads</li>
-      <li>Compatible with 10-17 inch laptops</li>
-      <li>Folds flat for portability</li>
-    </ul>
-    <button onclick="addToCart('Aluminum Laptop Stand', 1299)">Add to Cart</button>
-  </div>
+    <!-- PRODUCT INFO -->
+    <div class="product-info">
+      <h1>adjustable aluminum laptop stand</h1>
+      <p class="price">₹799</p>
 
-  <script>
-    function switchImage(element) {
-      const mainImage = document.getElementById("mainImage");
-      mainImage.src = element.src;
-    }
-  </script>
-</body>
-</html>
+      <p class="description">
+        A lightweight, foldable, and durable laptop stand made from premium aluminum,
+        designed to improve posture, airflow, and overall desk ergonomics. Whether
+        you are working, studying, or gaming, this stand helps reduce neck and back
+        strain by elevating your laptop to a more comfortable viewing angle.
+      </p>
+
+      <p class="description">
+        The open-frame design improves heat dissipation, keeping your laptop cooler
+        during long sessions, while the sturdy aluminum body ensures stability even
+        for heavier laptops. Its foldable design makes it easy to carry and perfect
+        for both home and on-the-go setups.
+      </p>
+
+      <ul class="description">
+        <li>Adjustable height and angle for ergonomic comfor
