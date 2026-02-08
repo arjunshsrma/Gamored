@@ -9,7 +9,7 @@
 
 <style>
 .success-wrapper {
-  max-width: 800px;
+  max-width: 820px;
   margin: 140px auto;
   padding: 50px;
   text-align: center;
@@ -22,27 +22,43 @@
 
 .success-wrapper h1 {
   color: #9fdcff;
-  font-size: 36px;
-  margin-bottom: 20px;
+  font-size: 38px;
+  margin-bottom: 22px;
 }
 
 .success-wrapper p {
   font-size: 18px;
   color: #cfe7ff;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
-.success-wrapper .order-id {
+.order-box {
+  margin: 30px auto;
+  padding: 20px 26px;
+  display: inline-block;
+
+  background: rgba(10,30,60,0.7);
+  border: 1px solid rgba(0,170,255,0.4);
+  border-radius: 14px;
+
+  font-size: 18px;
+}
+
+.order-id {
   font-weight: 700;
   color: #3ddcff;
+  letter-spacing: 0.5px;
 }
 
 .success-btn {
   display: inline-block;
-  padding: 16px 36px;
+  margin-top: 30px;
+  padding: 16px 40px;
+
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: #00121f;
-  border-radius: 14px;
+
+  border-radius: 16px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -51,7 +67,7 @@
 
 <body>
 
-<!-- SAME NAVBAR -->
+<!-- NAVBAR (SAME AS SITE) -->
 <div class="Po">
   <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
 
@@ -79,26 +95,40 @@
     is now being processed.
   </p>
 
-  <p>
-    <span class="order-id">
-      Order ID: <span id="orderIdText"></span>
-    </span>
-  </p>
+  <div class="order-box">
+    <div>
+      Order ID:
+      <span class="order-id" id="orderIdText">—</span>
+    </div>
+  </div>
 
   <p>
-    You’ll receive a confirmation email shortly with further details.
+    Please keep this Order ID for reference.<br>
+    You’ll receive a confirmation email shortly.
   </p>
 
   <a href="index.html" class="success-btn">Back to Home</a>
 </div>
 
 <script>
-  // Show order ID from URL
-  const params = new URLSearchParams(window.location.search);
-  const orderId = params.get("orderId");
-  if (orderId) {
-    document.getElementById("orderIdText").textContent = orderId;
-  }
+/*
+  Order ID resolution priority:
+  1) URL parameter (?orderId=...)
+  2) localStorage (fallback)
+*/
+
+const params = new URLSearchParams(window.location.search);
+let orderId = params.get("orderId");
+
+// fallback if URL param missing
+if (!orderId) {
+  orderId = localStorage.getItem("lastOrderId");
+}
+
+// display if available
+if (orderId) {
+  document.getElementById("orderIdText").textContent = orderId;
+}
 </script>
 
 </body>
