@@ -6,9 +6,6 @@ h1 {
   color: #9fdcff;
 }
 
-
-
-
 .featured-section {
   display: flex;
   flex-direction: column;
@@ -915,14 +912,4 @@ nav {
   margin-bottom: 30px;
   color: #7dd3fc;
   text-transform: lowercase;
-}
-.product-info ul {
-  margin-top: 15px;
-  padding-left: 20px;
-}
-
-.product-info ul li {
-  margin-bottom: 8px;
-  color: #cfe7ff;
-  font-size: 15px;
 }
