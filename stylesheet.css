@@ -1,25 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
 
 h1 {
   font-family: 'Iceberg', sans-serif;
   text-transform: lowercase;
   color: #9fdcff;
-}
-
-html {
-  font-family: 'Iceberg', sans-serif;
-}
-
-*, *::before, *::after {
-  font-family: inherit;
-}
-
-button,
-input,
-textarea,
-select {
-  font-family: inherit;
 }
 
 
@@ -931,4 +915,14 @@ nav {
   margin-bottom: 30px;
   color: #7dd3fc;
   text-transform: lowercase;
+}
+.product-info ul {
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+.product-info ul li {
+  margin-bottom: 8px;
+  color: #cfe7ff;
+  font-size: 15px;
 }
