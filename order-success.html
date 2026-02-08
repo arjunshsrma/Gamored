@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Successful – Gamored</title>
+
+<link rel="stylesheet" href="stylesheet.css">
+
+<style>
+.success-wrapper {
+  max-width: 800px;
+  margin: 140px auto;
+  padding: 50px;
+  text-align: center;
+
+  background: linear-gradient(135deg, #060b1a, #0b1c2d);
+  border-radius: 22px;
+  box-shadow: 0 0 45px rgba(0,170,255,0.25);
+  color: #e8f2ff;
+}
+
+.success-wrapper h1 {
+  color: #9fdcff;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.success-wrapper p {
+  font-size: 18px;
+  color: #cfe7ff;
+  margin-bottom: 30px;
+}
+
+.success-wrapper .order-id {
+  font-weight: 700;
+  color: #3ddcff;
+}
+
+.success-btn {
+  display: inline-block;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #00121f;
+  border-radius: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SAME NAVBAR -->
+<div class="Po">
+  <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+
+  <a href="index.html"><button>Home</button></a>
+
+  <div class="dropdown">
+    <button class="dropbtn">Products</button>
+    <div class="dropdown-content">
+      <a href="Laptopaccessories.html">Laptop Accessories</a>
+      <a href="Connectors.html">Connectors</a>
+    </div>
+  </div>
+
+  <a href="Contactus.html"><button>Contact Us</button></a>
+  <a href="Aboutus.html"><button>About Us</button></a>
+  <a href="index.html"><button>Continue Shopping</button></a>
+</div>
+
+<div class="success-wrapper">
+  <h1>🎉 Order Received!</h1>
+
+  <p>
+    Thank you for shopping with <strong>Gamored</strong>.<br>
+    Your payment details have been successfully submitted and your order
+    is now being processed.
+  </p>
+
+  <p>
+    <span class="order-id">
+      Order ID: <span id="orderIdText"></span>
+    </span>
+  </p>
+
+  <p>
+    You’ll receive a confirmation email shortly with further details.
+  </p>
+
+  <a href="index.html" class="success-btn">Back to Home</a>
+</div>
+
+<script>
+  // Show order ID from URL
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("orderId");
+  if (orderId) {
+    document.getElementById("orderIdText").textContent = orderId;
+  }
+</script>
+
+</body>
+</html>
