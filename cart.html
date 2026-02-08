@@ -1,238 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gamored — UPI Checkout</title>
+  <meta charset="UTF-8">
+  <title>Gamored Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="script.js" defer></script>
+  <style>
+      .pay-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-<style>
-/* ===== GAMORED THEME ===== */
-:root{
-  --bg:#05070c;
-  --panel:#0b1c2d;
-  --panel-soft:#081a2e;
-  --accent:#00c6ff;
-  --accent-2:#0072ff;
-  --text:#e8f2ff;
-  --muted:#9fdcff;
-  --danger:#ff4d4d;
+  padding: 16px 36px;
+  min-height: 64px;
+
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #00121f;
+
+  border: none;
+  border-radius: 14px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  white-space: normal;
+
+  cursor: pointer;
 }
 
-*{box-sizing:border-box}
 
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-  background: linear-gradient(#05070c,#081a2e);
-  color:var(--text);
+  .upi-button {
+    width: 100%;
+  }
 }
+  </style>
 
-/* ===== NAVBAR ===== */
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 6%;
-  background:#0b1c2d;
-}
-
-.nav a{
-  color:var(--text);
-  text-decoration:none;
-  margin:0 12px;
-  font-weight:600;
-}
-
-/* ===== CHECKOUT CARD ===== */
-.checkout-card{
-  max-width:800px;
-  margin:40px auto;
-  padding:30px;
-  border-radius:20px;
-  background:linear-gradient(135deg,var(--panel),var(--panel-soft));
-  box-shadow:0 0 40px rgba(0,170,255,.25);
-}
-
-.checkout-card h2{
-  color:var(--muted);
-  margin-bottom:20px;
-}
-
-/* ===== SECTIONS ===== */
-.card{
-  padding:18px 22px;
-  border-radius:14px;
-  background:rgba(10,30,60,.7);
-  border:1px solid rgba(0,170,255,.35);
-  margin-bottom:22px;
-}
-
-h3{color:var(--muted);margin-top:0}
-
-/* ===== QR ===== */
-.qr{
-  display:flex;
-  justify-content:center;
-  margin:20px 0;
-}
-
-.qr img{
-  width:180px;
-  height:180px;
-  border-radius:14px;
-  background:#fff;
-  padding:10px;
-}
-
-/* ===== FORM ===== */
-label{
-  display:block;
-  margin-top:14px;
-  font-weight:600;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin-top:6px;
-  border-radius:10px;
-  border:1px solid rgba(0,170,255,.4);
-  background:#0b1c2d;
-  color:var(--text);
-}
-
-input::placeholder{color:#7fbfff}
-
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-@media(max-width:640px){
-  .grid-2{grid-template-columns:1fr}
-}
-
-/* ===== BUTTON ===== */
-.btn-primary{
-  margin-top:26px;
-  padding:16px 36px;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  color:#00121f;
-  border:none;
-  border-radius:14px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.btn-primary:disabled{opacity:.6}
-
-/* ===== TOAST ===== */
-.toast{
-  margin-top:18px;
-  padding:12px 16px;
-  border-radius:10px;
-}
-
-.ok{
-  background:rgba(0,255,160,.15);
-  border:1px solid rgba(0,255,160,.4);
-}
-
-.err{
-  background:rgba(255,80,80,.15);
-  border:1px solid rgba(255,80,80,.4);
-}
-</style>
 </head>
-
 <body>
 
-<nav class="nav">
-  <div><a href="index.html">Gamored</a></div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="Laptopaccessories.html">Products</a>
-    <a href="cart.html">Cart</a>
+  <!-- 🔹 NAVBAR -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+    <a href="index.html"><button>Home</button></a>
+    <br>
+    <div class="dropdown"> 
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div>
+    <br>
+    <a href="Contactus.html"><button>Contact Us</button></a>
+    <a href="Aboutus.html"><button>About Us</button></a>
+    <a href="cart.html"><button class="active">Cart</button></a>
   </div>
-</nav>
 
-<section class="checkout-card">
+  <!-- 🔹 CART CONTENT -->
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+    <div class="cart-total">Total: ₹<span id="cart-total">0</span></div>
+    <div style="text-align:center;">
+      <button class="pay-btn" onclick="goToUPICheckout()">Pay via UPI (Upload Screenshot)</button>
+    </div>
+  </div>
 
-<h2>UPI Checkout</h2>
+  <!-- 🔹 CART DISPLAY SCRIPT -->
+  <script>
+    // Helper: convert "₹799" → 799
+    function toNumber(v){ return Number(String(v).replace(/[^\d.]/g,'') || 0); }
 
-<div id="order-summary" class="card">
-  <h3>Order Summary</h3>
-  <p><strong>Amount:</strong> ₹<span id="amountValue">0</span></p>
-  <p><strong>Items:</strong> <span id="itemCount">0</span></p>
-</div>
+    // Load cart items from localStorage
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const cartItemsDiv = document.getElementById("cart-items");
+      const totalSpan = document.getElementById("cart-total");
+      cartItemsDiv.innerHTML = "";
 
-<div class="qr">
-  <img id="upiQR" alt="UPI QR">
-</div>
+      let total = 0;
+      cart.forEach((item, index) => {
+        const price = toNumber(item.price);
+        const qty = item.qty ? Number(item.qty) : 1;
+        const itemTotal = price * qty;
+        total += itemTotal;
 
-<p style="text-align:center">
-  Scan the QR above or
-  <a id="upiLink" href="#" style="color:var(--accent);font-weight:700;">
-    pay via UPI app
-  </a>
-</p>
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item.name} — ₹${price} × ${qty}</span>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartItemsDiv.appendChild(div);
+      });
 
-<form id="upiCheckoutForm">
+      totalSpan.textContent = total;
+    }
 
-<h3>Contact Details</h3>
-<label>Full Name</label>
-<input id="fullName" required>
+    // Remove item from cart
+    function removeFromCart(index) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
 
-<label>Email</label>
-<input id="email" type="email" required>
+    // Redirect to UPI checkout with total in URL
+    function goToUPICheckout(){
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const total = cart.reduce((sum, item)=>{
+        const price = toNumber(item.price);
+        const qty   = Number(item.qty || 1);
+        return sum + price * qty;
+      }, 0);
+      window.location.href = 'upi-checkout.html?amount=' + encodeURIComponent(total);
+    }
 
-<label>Phone</label>
-<input id="phone" pattern="[0-9]{10}" required>
-
-<h3>Address</h3>
-<div class="grid-2">
-  <input placeholder="State" id="state" required>
-  <input placeholder="City" id="city" required>
-  <input placeholder="Pincode" id="pincode" required>
-  <input placeholder="House / Building" id="houseNo" required>
-</div>
-
-<input placeholder="Address Line 1" id="address1" required>
-<input placeholder="Address Line 2" id="address2">
-
-<h3>Payment Proof</h3>
-<input placeholder="UPI Ref / UTR" id="upiRef" required>
-<input type="file" id="screenshot" accept="image/*" required>
-
-<div id="shotPreview"></div>
-
-<input type="hidden" id="orderAmount">
-<input type="hidden" id="orderItemsJson">
-<input type="hidden" id="orderId">
-
-<button class="btn-primary" id="sendBtn">Send</button>
-<div id="formMsg" class="toast" style="display:none"></div>
-
-</form>
-</section>
-
-<script>
-(function(){
-  const cart=JSON.parse(localStorage.getItem('cart')||'[]');
-  const amount=cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
-  amountValue.textContent=amount.toFixed(2);
-  itemCount.textContent=cart.length;
-  orderAmount.value=amount.toFixed(2);
-  orderItemsJson.value=JSON.stringify(cart);
-  orderId.value='GAMO-'+Date.now();
-
-  const base=`upi://pay?pa=7042630996@fam&pn=Gamored&cu=INR&am=${amount.toFixed(2)}`;
-  upiQR.src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(base)}`;
-  upiLink.href=base;
-})();
-</script>
-
+    // Load on page open
+    loadCart();
+  </script>
 </body>
 </html>
