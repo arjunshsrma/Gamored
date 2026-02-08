@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logitech G213 Prodigy - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="Po">
+    <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+
+    <a href="index.html"><button>Home</button></a>
+
+    <div class="dropdown">
+      <button class="dropbtn">Products</button>
+      <div class="dropdown-content">
+        <a href="Laptopaccessories.html">Laptop Accessories</a>
+        <a href="Connectors.html">Connectors</a>
+      </div>
+    </div>
+
+    <a href="Contactus.html"><button>Contact Us</button></a>
+    <a href="Aboutus.html"><button>About Us</button></a>
+    <a href="cart.html"><button>🛒 Cart</button></a>
+  </div>
+
+  <!-- PRODUCT PAGE -->
+  <div class="product-page">
+
+    <!-- IMAGE GALLERY -->
+    <div class="product-gallery">
+      <img id="mainProductImage" src="G213 prodigykeyboard.jpg" class="main-image" alt="Logitech G213 Prodigy Keyboard">
+
+      <div class="thumbnail-row">
+        <img src="G213 prodigykeyboard.jpg" onclick="changeImage(this)">
+      </div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="product-info">
+      <h1>Logitech G213 Prodigy RGB Gaming Keyboard</h1>
+
+      <p class="price">₹3,499</p>
+
+      <p class="description">
+        The Logitech G213 Prodigy is a durable, spill-resistant gaming keyboard
+        featuring LIGHTSYNC RGB lighting, fast and responsive keys, and
+        dedicated media controls for seamless gaming and everyday use.
+      </p>
+
+      <ul style="text-align:left; margin-bottom:25px;">
+        <li>LIGHTSYNC RGB lighting with customizable zones</li>
+        <li>Spill-resistant design for everyday durability</li>
+        <li>Dedicated media control buttons</li>
+        <li>Fast, responsive keys tuned for gaming performance</li>
+      </ul>
+
+      <button onclick="addToCart('Logitech G213 Prodigy RGB Keyboard', 3499)">
+        Add to Cart
+      </button>
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    function changeImage(element) {
+      document.getElementById("mainProductImage").src = element.src;
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
