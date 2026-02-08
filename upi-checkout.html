@@ -310,15 +310,20 @@ document.getElementById('upiCheckoutForm').addEventListener('submit', async e =>
     const text = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0,200)}`);
 
-    /* ===== SUCCESS ===== */
-    msg.textContent = 'Submitted! We will confirm shortly.';
-    msg.className = 'toast ok';
-    msg.style.display = 'block';
+msg.textContent = 'Submitted! We will confirm shortly.';
+msg.className = 'toast ok';
+msg.style.display = 'block';
 
-    /* Redirect to success page */
-    setTimeout(() => {
-      window.location.href = 'order-success.html';
-    }, 1800);
+/* ✅ SAVE ORDER ID FOR SUCCESS PAGE FALLBACK */
+const orderId = document.getElementById('orderId').value;
+localStorage.setItem("lastOrderId", orderId);
+
+/* Redirect to success page */
+setTimeout(() => {
+  window.location.href =
+    'order-success.html?orderId=' + encodeURIComponent(orderId);
+}, 1800);
+
 
   } catch(err){
     msg.textContent = `Send failed → ${err.message}`;
