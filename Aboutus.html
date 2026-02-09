@@ -1,34 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamored</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <title>About Us – Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Main site CSS -->
+  <link rel="stylesheet" href="stylesheet.css">
+
+  <style>
+    /* ===== ABOUT PAGE ONLY ===== */
+    .about-page {
+      max-width: 1100px;
+      margin: 120px auto 80px;
+      padding: 40px;
+      color: #e8f2ff;
+    }
+
+    .about-hero {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 70px;
+    }
+
+    .about-photo {
+      flex: 0 0 260px;
+      text-align: center;
+    }
+
+    .about-photo img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 3px solid #1e90ff;
+      box-shadow: 0 0 25px rgba(0,170,255,0.35);
+    }
+
+    .about-intro h1 {
+      font-size: 42px;
+      color: #9fdcff;
+      margin-bottom: 16px;
+      text-transform: lowercase;
+    }
+
+    .about-intro p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #cfe7ff;
+    }
+
+    .about-section {
+      margin-bottom: 60px;
+      padding: 30px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0b1c2d, #081a2e);
+      box-shadow: 0 0 35px rgba(0,170,255,0.18);
+    }
+
+    .about-section h2 {
+      font-size: 32px;
+      color: #7dd3fc;
+      margin-bottom: 18px;
+      text-transform: lowercase;
+    }
+
+    .about-section p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #cfe7ff;
+    }
+
+    .vision-points {
+      margin-top: 18px;
+      padding-left: 20px;
+    }
+
+    .vision-points li {
+      margin-bottom: 12px;
+      font-size: 17px;
+      color: #e8f2ff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .about-hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-intro h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="Po">
-        <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
-    <a href="index.html">
-        <button>Home</button>
-    </a>
-        <br>
-        <div class="dropdown">
-            <button class="dropbtn">Products</button>
-            <div class="dropdown-content">
-              <a href="Laptopaccessories.html">Laptop Accessories</a>
-              <a href="Connectors.html">Connectors</a>
-            </div>
-          </div>
-        <br>
-    <a href="Contactus.html">
-        <button>Contact us</button>
-    </a>
-    <a href="Aboutus.html">
-        <button class="button active">About us</button>
-    </a>
-    <a href="cart.html"><button>🛒 Cart</button></a>
+
+<!-- NAVBAR (UNCHANGED, FROM stylesheet.css) -->
+<div class="Po">
+  <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+
+  <a href="index.html"><button>Home</button></a>
+
+  <div class="dropdown">
+    <button class="dropbtn">Products</button>
+    <div class="dropdown-content">
+      <a href="Laptopaccessories.html">Laptop Accessories</a>
+      <a href="Connectors.html">Connectors</a>
     </div>
+  </div>
+
+  <a href="Contactus.html"><button>Contact Us</button></a>
+  <a href="Aboutus.html"><button class="active">About Us</button></a>
+  <a href="cart.html"><button>🛒 Cart</button></a>
+</div>
+
+<!-- ABOUT PAGE CONTENT -->
+<div class="about-page">
+
+  <!-- INTRO -->
+  <div class="about-hero">
+    <div class="about-photo">
+      <!-- REPLACE THIS IMAGE WITH YOUR PHOTO -->
+      <img src="your-photo.jpg" alt="Founder of Gamored">
+    </div>
+
+    <div class="about-intro">
+      <h1>who am i?</h1>
+      <p>
+        Hi, I’m the founder of <strong>Gamored</strong> — a student, a gamer,
+        and a tech enthusiast who believes that gaming gear should be
+        <strong>accessible, trustworthy, and worth the price</strong>.
+        Gamored started as a personal idea and is now growing into a brand
+        built by passion, learning, and real experience.
+      </p>
+    </div>
+  </div>
+
+  <!-- AIM OF GAMORED -->
+  <div class="about-section">
+    <h2>the aim of gamored</h2>
+    <p>
+      Gamored was created to solve a simple but common problem:
+      finding <strong>reliable gaming and tech accessories</strong> without
+      worrying about scams, fake products, or overpriced listings.
+      Every product on Gamored is selected with performance, value,
+      and user trust in mind.
+    </p>
+  </div>
+
+  <!-- WHY GAMORED -->
+  <div class="about-section">
+    <h2>why gamored exists</h2>
+    <p>
+      As a gamer myself, I’ve experienced the frustration of ordering
+      accessories online and receiving low-quality or misleading products.
+      Gamored exists to be a platform where customers can shop with
+      confidence, knowing exactly what they are paying for and why.
+    </p>
+  </div>
+
+  <!-- VISION -->
+  <div class="about-section">
+    <h2>the vision</h2>
+    <p>
+      Gamored is not just a store — it’s a learning journey and a long-term
+      vision. The goal is to grow Gamored into a trusted tech brand that
+      supports gamers, students, and creators alike.
+    </p>
+
+    <ul class="vision-points">
+      <li>Build trust through transparency and quality</li>
+      <li>Expand into premium gaming and productivity gear</li>
+      <li>Create a brand that understands real users</li>
+      <li>Learn, improve, and scale responsibly</li>
+    </ul>
+  </div>
+
+</div>
+
 </body>
 </html>
