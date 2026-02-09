@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type-C to USB 3.0 OTG Converter - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+<div class="Po">
+  <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+  <a href="index.html"><button>Home</button></a>
+
+  <div class="dropdown">
+    <button class="dropbtn">Products</button>
+    <div class="dropdown-content">
+      <a href="Laptopaccessories.html">Laptop Accessories</a>
+      <a href="Connectors.html">Connectors</a>
+    </div>
+  </div>
+
+  <a href="Contactus.html"><button>Contact Us</button></a>
+  <a href="Aboutus.html"><button>About Us</button></a>
+  <a href="cart.html"><button>🛒 Cart</button></a>
+</div>
+
+<div class="product-page">
+
+  <div class="product-gallery">
+    <img id="mainProductImage" src="typec_usb_1.png" class="main-image">
+
+    <div class="thumbnail-row">
+      <img src="typec_usb_1.png" onclick="changeImage(this)">
+      <img src="typec_usb_2.png" onclick="changeImage(this)">
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h1>Type-C to USB 3.0 OTG Converter Adapter</h1>
+    <p class="price">₹199</p>
+
+    <p class="description">
+      Compact OTG adapter that allows you to connect USB devices such as
+      keyboards, mice, pendrives, and controllers to Type-C smartphones,
+      tablets, and laptops.
+    </p>
+
+    <ul>
+      <li>USB 3.0 high-speed data transfer</li>
+      <li>Plug-and-play OTG support</li>
+      <li>Compact & durable metal design</li>
+      <li>Compatible with Type-C devices</li>
+    </ul>
+
+    <button onclick="addToCart('Type-C to USB 3.0 OTG Converter', 199)">
+      Add to Cart
+    </button>
+  </div>
+
+</div>
+
+<script>
+  function changeImage(el){
+    document.getElementById("mainProductImage").src = el.src;
+  }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
