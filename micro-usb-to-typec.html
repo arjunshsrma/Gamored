@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Micro USB to Type-C Adapter - Gamored</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+<div class="Po">
+  <img src="openart-image_kz9NAdvh_1752636502377_raw-removebg-preview.png" width="150px">
+  <a href="index.html"><button>Home</button></a>
+
+  <div class="dropdown">
+    <button class="dropbtn">Products</button>
+    <div class="dropdown-content">
+      <a href="Laptopaccessories.html">Laptop Accessories</a>
+      <a href="Connectors.html">Connectors</a>
+    </div>
+  </div>
+
+  <a href="Contactus.html"><button>Contact Us</button></a>
+  <a href="Aboutus.html"><button>About Us</button></a>
+  <a href="cart.html"><button>🛒 Cart</button></a>
+</div>
+
+<div class="product-page">
+
+  <div class="product-gallery">
+    <img id="mainProductImage" src="micro_typec_1.png" class="main-image">
+
+    <div class="thumbnail-row">
+      <img src="micro_typec_1.png" onclick="changeImage(this)">
+      <img src="micro_typec_2.png" onclick="changeImage(this)">
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h1>Micro USB Adapter to Type-C</h1>
+    <p class="price">₹99</p>
+
+    <p class="description">
+      Compact adapter for charging and data syncing, converting Micro USB
+      cables into Type-C for modern devices.
+    </p>
+
+    <ul>
+      <li>Supports charging and data sync</li>
+      <li>Ultra-compact design</li>
+      <li>Durable connector</li>
+      <li>Ideal for travel</li>
+    </ul>
+
+    <button onclick="addToCart('Micro USB to Type-C Adapter', 99)">
+      Add to Cart
+    </button>
+  </div>
+
+</div>
+
+<script>
+  function changeImage(el){
+    document.getElementById("mainProductImage").src = el.src;
+  }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
